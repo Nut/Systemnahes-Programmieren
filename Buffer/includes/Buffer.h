@@ -21,7 +21,7 @@ class Buffer {
 		void ungetChar(unsigned int steps);
 
 	private:
-		static const unsigned BUFFER_SIZE = 10;
+		static const unsigned BUFFER_SIZE = 5;
 		const char* fileName;
 		ifstream file;
 		char* current_buffer;

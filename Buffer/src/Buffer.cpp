@@ -50,16 +50,16 @@ char Buffer::getChar() {
 }
 
 void Buffer::ungetChar(unsigned int steps) {
-	if ((steps + 1) > index) {
+	steps++;
+	if (steps > index) {
 		steps -= index;
+		index = BUFFER_SIZE - 1;
 		char* temp = previous_buffer;
 		previous_buffer = current_buffer;
 		current_buffer = temp;
-		index = BUFFER_SIZE - 1;
-		if ((index - steps) < 0) {
-			cout << "Error" << endl;  //insert error
-		} else {
-			index = index - steps;
+		if (steps > index) {
+			throw "You cannot go back so far!";
 		}
 	}
+	index -= steps;
 }
