@@ -6,11 +6,15 @@
 #include "../includes/Automat.h"
 
 
-Automat::Automat() {
-	// TODO Auto-generated constructor stub
+Automat::Automat(Buffer buffer) {
+	this->buffer = buffer;
 
 }
 
 Automat::~Automat() {
 	// TODO Auto-generated destructor stub
+}
+
+void read(char* c) {
+
 }
