@@ -19,7 +19,7 @@ public:
 
 private:
 	static const unsigned TABLE_SIZE = 1024;
-	SymtabEntry* table[TABLE_SIZE];
+	SymtabEntry** table;
 	unsigned int hash(const char* s, unsigned int seed = 0);
 	bool strCmp(char* s1, char* s2);
 };
