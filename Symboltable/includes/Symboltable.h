@@ -15,7 +15,7 @@ public:
 	Symboltable();
 	virtual ~Symboltable();
 	unsigned int insert(char* lexem);
-	SymtabEntry* lookup(int key);
+	SymtabEntry* lookup(unsigned int key);
 
 private:
 	static const unsigned TABLE_SIZE = 1024;
