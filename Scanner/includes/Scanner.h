@@ -7,11 +7,13 @@
 
 #ifndef SCANNER_H_
 #define SCANNER_H_
+#include "Token.h";
 
 class Scanner {
 public:
-	Scanner();
+	Scanner(char* filename);
 	virtual ~Scanner();
+	Token nextToken();
 };
 
 #endif /* SCANNER_H_ */

@@ -18,7 +18,24 @@ public:
 		Integer,
 		Plus,
 		Minus,
-		Semicolon
+		Colon,
+		Star,
+		LessThan,
+		GreaterThan,
+		Equal,
+		ColonBetweenEqual,
+		Exclamation,
+		And,
+		Semicolon,
+		LeftParent,
+		RightParent,
+		LeftCurved,
+		RightCurved,
+		LeftBracket,
+		RightBracket,
+		WhileToken,
+		IfToken,
+		Unknown
 	};
 	Token(TType type, int line, int column);
 	Token(int line, int column, int infoKey);

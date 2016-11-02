@@ -12,9 +12,31 @@ class Automat {
 public:
 	Automat();
 	virtual ~Automat();
-	void read(char* c);
+	void read(char c);
+	void setBack(int steps);
+	int getBack();
 private:
-	enum
+	enum State {
+		Start,
+		Null,
+		Identifier,
+		Integer,
+		Error,
+		Colon,
+		Assign,
+		Equal,
+		And,
+		DoubleAnd,
+		ColonBetweenEqual,
+		ColonBetweenEqualFinal,
+		CommentStart,
+		CommentClose,
+		CommentFinal,
+		Sign
+	};
+	State currentState;
+	State lastFinalState;
+	int back;
 };
 
 #endif /* Automat_H_ */
