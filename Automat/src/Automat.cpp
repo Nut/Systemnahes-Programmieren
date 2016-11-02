@@ -5,9 +5,7 @@
 
 #include "../includes/Automat.h"
 
-
-Automat::Automat(Buffer buffer) {
-	this->buffer = buffer;
+Automat::Automat() {
 
 }
 
@@ -15,6 +13,6 @@ Automat::~Automat() {
 	// TODO Auto-generated destructor stub
 }
 
-void read(char* c) {
+void Automat::read(char* c) {
 
 }

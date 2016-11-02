@@ -10,11 +10,11 @@
 
 class Automat {
 public:
-	Automat(Buffer buffer);
+	Automat();
 	virtual ~Automat();
 	void read(char* c);
 private:
-	Buffer buffer;
+	enum
 };
 
 #endif /* Automat_H_ */
