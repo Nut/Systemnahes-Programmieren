@@ -1,24 +1,21 @@
-/*
- * SymtabEntry.h
- *
- *  Created on: 01.11.2016
- *      Author: Denis
- */
+#ifndef SYMTABENTRY_H_
+#define SYMTABENTRY_H_
 
-#ifndef SYMBOLTABLE_INCLUDES_SYMTABENTRY_H_
-#define SYMBOLTABLE_INCLUDES_SYMTABENTRY_H_
-
+#include "Information.h"
 
 class SymtabEntry {
-public:
-	SymtabEntry(char* lexem);
-	virtual ~SymtabEntry();
-	char* getName();
+	public:
+		SymtabEntry(Information* info);
+		virtual ~SymtabEntry();
+		SymtabEntry* getNext();
+		void setNext(SymtabEntry* next);
+		Information* getInfo();
 
-private:
-	char* name;
+	private:
+		SymtabEntry* next;
+		Information* info;
 };
 
 
 
-#endif /* SYMBOLTABLE_INCLUDES_SYMTABENTRY_H_ */
+#endif /* SYMTABENTRY_H_ */

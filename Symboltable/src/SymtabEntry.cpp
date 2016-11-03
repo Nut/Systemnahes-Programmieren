@@ -1,21 +1,22 @@
-/*
- * SymtabEntry.cpp
- *
- *  Created on: 01.11.2016
- *      Author: Denis
- */
 #include "../includes/SymtabEntry.h"
+#include <string.h>
 
-SymtabEntry::SymtabEntry(char* lexem) {
-	name = lexem;
+SymtabEntry::SymtabEntry(Information* info) {
+	this->info = info;
+	this->next = NULL;
 }
 
 SymtabEntry::~SymtabEntry() {
-	// TODO Auto-generated destructor stub
 }
 
-char* SymtabEntry::getName() {
-	return name;
+SymtabEntry* SymtabEntry::getNext() {
+	return this->next;
 }
 
+void SymtabEntry::setNext(SymtabEntry* next) {
+	this->next = next;
+}
 
+Information* SymtabEntry::getInfo() {
+	return this->info;
+}

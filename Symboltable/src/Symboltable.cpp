@@ -1,14 +1,8 @@
-/*
- * Symboltable.cpp
- *
- *  Created on: Sep 26, 2012
- *      Author: knad0001
- */
-
 #include "../includes/Symboltable.h"
-#include <iostream>
+#include <cstring>
 
 Symboltable::Symboltable() {
+	stringTable = new StringTable();
 	table = new SymtabEntry*[TABLE_SIZE];
 	for (unsigned int i = 0; i < TABLE_SIZE; i++) {
 		table[i] = NULL;
@@ -16,9 +10,16 @@ Symboltable::Symboltable() {
 }
 
 Symboltable::~Symboltable() {
+	delete stringTable;
 	for (unsigned int i = 0; i < TABLE_SIZE; i++) {
 		if (table[i] != NULL) {
-			delete table[i];
+			SymtabEntry *prevEntry = NULL;
+			SymtabEntry *entry = table[i];
+			while (entry != NULL) {
+				prevEntry = entry;
+				entry = entry->getNext();
+				delete prevEntry;
+			}
 		}
 	}
 	delete[] table;
@@ -26,10 +27,24 @@ Symboltable::~Symboltable() {
 
 unsigned int Symboltable::insert(char* lexem) {
 	unsigned int hashValue = hash(lexem);
-	SymtabEntry* existantSymtabEntry = lookup(hashValue);
-	if ((existantSymtabEntry == NULL) || !(strCmp(existantSymtabEntry->getName(), lexem))) {
-		table[hashValue % TABLE_SIZE] = new SymtabEntry(lexem);
+	SymtabEntry* tmpSymtabEntry = lookup(hashValue);
+
+	if (tmpSymtabEntry == NULL) { //noch keinen Eintrag in der HashTable gefunden
+		char* p = stringTable->insert(lexem, strlen(lexem));
+		table[hashValue % TABLE_SIZE] = new SymtabEntry(new Information(p));
+	} else {
+		while (tmpSymtabEntry->getNext() != NULL) {
+			if (tmpSymtabEntry->getInfo()->compareLex(lexem)) {
+				return hashValue;
+			}
+			tmpSymtabEntry = tmpSymtabEntry->getNext();
+		}
+
+		char* p = stringTable->insert(lexem, strlen(lexem));
+		SymtabEntry* newEntry = new SymtabEntry(new Information(p));
+		tmpSymtabEntry->setNext(newEntry);
 	}
+
 	return hashValue;
 }
 
@@ -43,19 +58,4 @@ unsigned int Symboltable::hash(const char* s, unsigned int seed) {
 		hash = hash * 101 + *s++;
 	}
 	return hash;
-}
-
-bool Symboltable::strCmp(char* s1, char* s2) {
-    bool x = true;
-    while (*s1 != '\0' && *s2 != '\0') {
-        if (*s1 != *s2) {
-            return false;
-        }
-        s1++;
-        s2++;
-    }
-    if (*s1 != *s2) {
-        x = false;
-    }
-    return x;
 }

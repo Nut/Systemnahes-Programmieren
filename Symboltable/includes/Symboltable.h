@@ -1,14 +1,8 @@
-/*
- * Symboltable.h
- *
- *  Created on: Sep 26, 2012
- *      Author: knad0001
- */
-
 #ifndef SYMBOLTABLE_H_
 #define SYMBOLTABLE_H_
 
 #include "../includes/SymtabEntry.h"
+#include "StringTable.h"
 
 class Symboltable {
 public:
@@ -19,6 +13,7 @@ public:
 
 private:
 	static const unsigned TABLE_SIZE = 1024;
+	StringTable* stringTable;
 	SymtabEntry** table;
 	unsigned int hash(const char* s, unsigned int seed = 0);
 	bool strCmp(char* s1, char* s2);

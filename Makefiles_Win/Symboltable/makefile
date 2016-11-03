@@ -18,6 +18,9 @@ BINDIRTEST = debug
 
 OBJS = $(OBJDIR)/Symboltable.o \
 		$(OBJDIR)/SymtabEntry.o \
+		$(OBJDIR)/StringTable.o \
+		$(OBJDIR)/StringTabNode.o \
+		$(OBJDIR)/Information.o \
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
