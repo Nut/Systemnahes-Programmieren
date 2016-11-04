@@ -14,6 +14,12 @@ public:
 	Scanner(char* filename);
 	virtual ~Scanner();
 	Token nextToken();
+private:
+	Automat* automat;
+	Buffer* buffer;
+	Symboltable* symboltable;
+	char* lexem;
+	Token createToken(Automat::State state);
 };
 
 #endif /* SCANNER_H_ */
