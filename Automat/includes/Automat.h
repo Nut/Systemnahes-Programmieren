@@ -37,10 +37,13 @@ public:
 	void setLastFinalState(Automat::State state);
 	void setBack(int steps);
 	int getBack();
+	bool isStop();
+	void reset();
 private:
 	State currentState;
 	State lastFinalState;
 	int back;
+	bool stop;
 };
 
 #endif /* Automat_H_ */

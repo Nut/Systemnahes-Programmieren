@@ -37,7 +37,7 @@ public:
 		IfToken,
 		Unknown
 	};
-	Token(Token::TType type, int line, int column, int infoKey, int value);
+	Token(Token::TType type, int line, int column, int infoKey, int value, char* symbol);
 	virtual ~Token();
 	int getLine();
 	int getColumn();
@@ -51,6 +51,7 @@ private:
 	int column;
 	int value = NULL;
 	int infoKey = NULL;
+	char* symbol = NULL;
 };
 
 

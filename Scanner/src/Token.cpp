@@ -7,7 +7,7 @@
 
 #include "../includes/Token.h"
 
-Token::Token(Token::TType type, int line, int column, int infoKey, int value) {
+Token::Token(Token::TType type, int line, int column, int infoKey, int value, char* symbol) {
 		this->type = type;
 		this->line = line;
 		this->column = column;
@@ -16,6 +16,9 @@ Token::Token(Token::TType type, int line, int column, int infoKey, int value) {
 		}
 		if (value != NULL) {
 			this->value = value;
+		}
+		if (symbol != NULL) {
+			this->symbol = symbol;
 		}
 }
 
@@ -49,6 +52,7 @@ char* Token::typeToString()
     switch (this->type)
     {
         case Token::Identifier:   return "Identifier";
+        case Token::Unknown:   return "Unknown";
         default:      return "[Unknown Type]";
     }
 }

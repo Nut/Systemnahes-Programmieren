@@ -50,7 +50,7 @@ char Buffer::getChar() {
 }
 
 void Buffer::ungetChar(unsigned int steps) {
-	steps++;
+	//steps++;
 	if (steps > index) {
 		steps -= index;
 		index = BUFFER_SIZE - 1;
