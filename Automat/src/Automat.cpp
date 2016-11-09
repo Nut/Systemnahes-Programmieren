@@ -5,11 +5,11 @@
 
 #include "../includes/Automat.h"
 #include <ctype.h>
-#include <iostream>
+#include <cstring>
 
 Automat::Automat() {
 	this->currentState = Start;
-	this->lastFinalState = NULL;
+	this->lastFinalState = Null;
 	this->back = 0;
 }
 
@@ -23,6 +23,10 @@ Automat::State Automat::getCurrentState() {
 
 Automat::State Automat::getLastFinalState() {
 	return this->lastFinalState;
+}
+
+void Automat::setLastFinalState(Automat::State state) {
+	this->lastFinalState = state;
 }
 
 void Automat::read(char c) {

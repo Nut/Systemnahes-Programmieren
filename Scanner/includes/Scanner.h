@@ -7,19 +7,23 @@
 
 #ifndef SCANNER_H_
 #define SCANNER_H_
-#include "Token.h";
+
+#include "Token.h"
+#include "../../Automat/includes/Automat.h"
+#include "../../Buffer/includes/Buffer.h"
+#include "../../Symboltable/includes/Symboltable.h"
 
 class Scanner {
 public:
-	Scanner(char* filename);
+	Scanner(char* filename, Symboltable* symtab);
 	virtual ~Scanner();
-	Token nextToken();
+	Token* nextToken();
 private:
 	Automat* automat;
 	Buffer* buffer;
 	Symboltable* symboltable;
+	Token* createToken(Automat::State state);
 	char* lexem;
-	Token createToken(Automat::State state);
 };
 
 #endif /* SCANNER_H_ */

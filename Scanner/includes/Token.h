@@ -7,7 +7,7 @@
 
 #ifndef SCANNER_INCLUDES_TOKEN_H_
 #define SCANNER_INCLUDES_TOKEN_H_
-#include <iostream>;
+#include <cstring>
 
 class Token {
 public:
@@ -37,17 +37,16 @@ public:
 		IfToken,
 		Unknown
 	};
-	Token(TType type, int line, int column);
-	Token(int line, int column, int infoKey);
-	Token(int line, int column, int value);
+	Token(Token::TType type, int line, int column, int infoKey, int value);
 	virtual ~Token();
 	int getLine();
 	int getColumn();
 	int getValue();
 	int getInfoKey();
-	TType getType();
+	Token::TType getType();
+	char* typeToString();
 private:
-	TType type;
+	Token::TType type;
 	int line;
 	int column;
 	int value = NULL;

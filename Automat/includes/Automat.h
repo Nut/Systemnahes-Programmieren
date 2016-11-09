@@ -25,13 +25,16 @@ public:
 			CommentStart,
 			CommentClose,
 			CommentFinal,
-			Sign
+			Sign,
+			Eof,
+			Null
 		};
 	Automat();
 	virtual ~Automat();
 	void read(char c);
 	State getCurrentState();
 	State getLastFinalState();
+	void setLastFinalState(Automat::State state);
 	void setBack(int steps);
 	int getBack();
 private:
