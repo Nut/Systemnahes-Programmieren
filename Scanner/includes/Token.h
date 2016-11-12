@@ -43,15 +43,16 @@ public:
 	int getColumn();
 	int getValue();
 	int getInfoKey();
+	char* getSymbol();
 	Token::TType getType();
 	char* typeToString();
 private:
 	Token::TType type;
 	int line;
 	int column;
-	int value = NULL;
-	int infoKey = NULL;
-	char* symbol = NULL;
+	int value;
+	int infoKey;
+	char* symbol;
 };
 
 

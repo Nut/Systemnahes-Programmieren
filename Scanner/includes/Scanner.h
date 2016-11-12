@@ -22,8 +22,7 @@ private:
 	Automat* automat;
 	Buffer* buffer;
 	Symboltable* symboltable;
-	Token* createToken(Automat::State state);
-	char* lexem;
+	Token* createToken();
 };
 
 #endif /* SCANNER_H_ */

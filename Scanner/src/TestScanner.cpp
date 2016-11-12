@@ -8,10 +8,16 @@ int main(int argc, char **argv) {
 	Scanner* scanner = new Scanner("Buffer/includes/test.txt", symtab);
 	Token* t;
 	while (t = scanner->nextToken()) {
-		if (t->getInfoKey() != NULL) {
-			cout << "Token " << t->typeToString() << " " <<  symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
-		} else {
-			cout << "Token " << t->typeToString() << endl;
+		switch(t->getType()) {
+			case Token::Identifier:
+				cout << "Token " << t->typeToString() << " Lexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
+				break;
+			case Token::Integer:
+				cout << "Token " << t->typeToString() << " " << endl;
+				break;
+			case Token::Unknown:
+				cout << "Unknown Token Symbol: " << t->getSymbol() << endl;
+				break;
 		}
 	}
 }

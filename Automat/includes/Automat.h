@@ -37,13 +37,18 @@ public:
 	void setLastFinalState(Automat::State state);
 	void setBack(int steps);
 	int getBack();
+	char* getLexem();
 	bool isStop();
 	void reset();
+	void clearLexem();
 private:
 	State currentState;
 	State lastFinalState;
 	int back;
 	bool stop;
+	char* lexem;
+	int indexLexem;
+	bool isSign(char c);
 };
 
 #endif /* Automat_H_ */
