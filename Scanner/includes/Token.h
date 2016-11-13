@@ -35,7 +35,8 @@ public:
 		RightBracket,
 		WhileToken,
 		IfToken,
-		Unknown
+		Unknown,
+		Null
 	};
 	Token(Token::TType type, int line, int column, int infoKey, int value, char* symbol);
 	virtual ~Token();

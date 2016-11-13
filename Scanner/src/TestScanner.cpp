@@ -1,6 +1,7 @@
 #include "../includes/Scanner.h"
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 
 int main(int argc, char **argv) {
 
@@ -10,13 +11,35 @@ int main(int argc, char **argv) {
 	while (t = scanner->nextToken()) {
 		switch(t->getType()) {
 			case Token::Identifier:
-				cout << "Token " << t->typeToString() << " Lexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
+				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << std::setw(10) << " Lexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
 				break;
 			case Token::Integer:
-				cout << "Token " << t->typeToString() << " " << endl;
+				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " " << endl;
+				break;
+			case Token::And:
+			case Token::Assign:
+			case Token::Plus:
+			case Token::Minus:
+			case Token::Colon:
+			case Token::Star:
+			case Token::LessThan:
+			case Token::GreaterThan:
+			case Token::Equal:
+			case Token::ColonBetweenEqual:
+			case Token::Exclamation:
+			case Token::Semicolon:
+			case Token::LeftParent:
+			case Token::RightParent:
+			case Token::LeftCurved:
+			case Token::RightCurved:
+			case Token::LeftBracket:
+			case Token::RightBracket:
+				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " " << endl;
 				break;
 			case Token::Unknown:
-				cout << "Unknown Token Symbol: " << t->getSymbol() << endl;
+				cout << std::setw(14) << "Unknown Token " << std::setw(22) << "Symbol: " << t->getSymbol() << endl;
+				break;
+			case Token::Null:
 				break;
 		}
 	}

@@ -86,14 +86,18 @@ void Automat::read(char c) {
 				this->lastFinalState = Integer;
 				lexem[indexLexem++] = c;
 			} else if (c == '=') {
+				this->currentState = Equal;
 				this->lastFinalState = Equal;
 			} else if (c == '&') {
 				this->currentState = And;
 			} else if (c == ':') {
+				this->currentState = Colon;
 				this->lastFinalState = Colon;
 			} else if (isSign(c)) {
 				this->lastFinalState = Sign;
-			} else if (c == ' ') {
+				lexem[indexLexem++] = c;
+				stop = true;
+			} else if (c == ' ' || c == '\n') {
 				this->currentState = Start;
 			} else if (c == '\0') {
 				this->lastFinalState = Eof;
@@ -125,30 +129,73 @@ void Automat::read(char c) {
 			}
 			break;
 		case Colon:
-			break;
-		case Assign:
+			if (c == '=') {
+				this->lastFinalState = Assign;
+				stop = true;
+			} else if (c == '*') {
+				this->currentState = CommentStart;
+				this->back++;
+			} else {
+				if (c != '\0') {
+					this->back++;
+				}
+				stop = true;
+			}
 			break;
 		case Equal:
+			if (c == ':') {
+				this->currentState = ColonBetweenEqual;
+			} else {
+				if (c != '\0') {
+					this->back++;
+				}
+				stop = true;
+			}
 			break;
 		case And:
-			break;
-		case DoubleAnd:
+			if (c == '&') {
+				this->lastFinalState = DoubleAnd;
+			} else {
+				this->lastFinalState = Error;
+				lexem[indexLexem++] = c;
+				if (c != '\0') {
+					this->back++;
+				}
+			}
+			stop = true;
 			break;
 		case ColonBetweenEqual:
-			break;
-		case ColonBetweenEqualFinal:
+			if (c == '=') {
+				this->lastFinalState = ColonBetweenEqualFinal;
+			} else {
+				if (c != '\0') {
+					this->back += 2;
+				}
+			}
+			stop = true;
 			break;
 		case CommentStart:
+			if (c == '*') {
+				this->currentState = CommentClose;
+				this->back++;
+			} else {
+				if (c != '\0') {
+					this->back++;
+				} else {
+					stop = true;
+				}
+			}
 			break;
 		case CommentClose:
-			break;
-		case CommentFinal:
-			break;
-		case Sign:
-			break;
-		case Null:
-			break;
-		default:
+			if (c == ':') {
+				this->lastFinalState = CommentFinal;
+				this->back = 0;
+			} else {
+				if (c != '\0') {
+					this->back++;
+				}
+			}
+			stop = true;
 			break;
 	}
 }

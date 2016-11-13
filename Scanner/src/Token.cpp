@@ -78,7 +78,7 @@ char* Token::typeToString() {
 	case Token::Semicolon:
 		return "Semicolon";
 	case Token::LeftParent:
-		return "Exclamation";
+		return "LeftParent";
 	case Token::RightParent:
 		return "RightParent";
 	case Token::LeftCurved:
