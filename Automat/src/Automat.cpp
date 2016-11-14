@@ -190,12 +190,15 @@ void Automat::read(char c) {
 			if (c == ':') {
 				this->lastFinalState = CommentFinal;
 				this->back = 0;
+				stop = true;
 			} else {
 				if (c != '\0') {
+					this->currentState = CommentStart;
 					this->back++;
+				} else {
+					stop = true;
 				}
 			}
-			stop = true;
 			break;
 	}
 }
