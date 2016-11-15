@@ -34,9 +34,12 @@ Token* Scanner::createToken() {
 	switch(automat->getLastFinalState()) {
 		case Automat::Eof:
 			return NULL;
-		case Automat::Error:
-			return new Token(Token::Unknown, 0, 0, NULL, NULL, automat->getLexem());
+		case Automat::Error: {
+			char* lexem = automat->getLexem();
+			return new Token(Token::Unknown, 0, 0, NULL, NULL, lexem);
+		}
 		case Automat::Identifier:
+			cout << automat->getLexem() << endl;
 			return new Token(Token::Identifier, 0, 0, symboltable->insert(automat->getLexem()), NULL, NULL);
 		case Automat::Integer:
 			return new Token(Token::Integer, 0, 0, NULL, NULL , NULL);
