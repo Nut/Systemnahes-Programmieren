@@ -82,6 +82,15 @@ bool Automat::isSign(char c) {
 	}
 }
 
+bool Automat::isNumber(char c) {
+	if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' ||
+	    c == '6' || c == '7' || c == '8' || c == '9') {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void Automat::read(char c, unsigned int line, unsigned int column) {
 	switch (currentState) {
 		case Start:
@@ -91,7 +100,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				this->currentState = Identifier;
 				this->lastFinalState = Identifier;
 				lexem[indexLexem++] = c;
-			} else if (isdigit(c)) {
+			} else if (isNumber(c)) {
 				this->currentState = Integer;
 				this->lastFinalState = Integer;
 				lexem[indexLexem++] = c;
@@ -100,6 +109,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				this->lastFinalState = Equal;
 			} else if (c == '&') {
 				this->currentState = And;
+				lexem[indexLexem++] = c;
 			} else if (c == ':') {
 				this->currentState = Colon;
 				this->lastFinalState = Colon;
@@ -119,21 +129,21 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 			}
 			break;
 		case Identifier:
-			if (!(isalpha(c) || isdigit(c))) {
-				stop = true;
-				if (c != '\0') {
+			if (!(isalpha(c) || isNumber(c))) {
+				if (c != '\0' && c != '\n') {
 					this->back++;
 				}
+				stop = true;
 			} else {
 				lexem[indexLexem++] = c;
 			}
 			break;
 		case Integer:
-			if (!isdigit(c)) {
-				stop = true;
-				if (c != '\0') {
+			if (!isNumber(c)) {
+				if (c != '\0' && c != '\n') {
 					this->back++;
 				}
+				stop = true;
 			} else {
 				lexem[indexLexem++] = c;
 			}
@@ -146,7 +156,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				this->currentState = CommentStart;
 				this->back++;
 			} else {
-				if (c != '\0') {
+				if (c != '\0' && c != '\n') {
 					this->back++;
 				}
 				stop = true;
@@ -156,7 +166,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 			if (c == ':') {
 				this->currentState = ColonBetweenEqual;
 			} else {
-				if (c != '\0') {
+				if (c != '\0' && c != '\n') {
 					this->back++;
 				}
 				stop = true;
@@ -167,8 +177,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				this->lastFinalState = DoubleAnd;
 			} else {
 				this->lastFinalState = Error;
-				lexem[indexLexem++] = c;
-				if (c != '\0') {
+				if (c != '\0' && c != '\n') {
 					this->back++;
 				}
 			}
@@ -180,6 +189,8 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 			} else {
 				if (c != '\0') {
 					this->back += 2;
+				} else {
+					this->back++;
 				}
 			}
 			stop = true;

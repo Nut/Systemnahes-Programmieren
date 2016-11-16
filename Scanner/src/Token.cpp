@@ -94,7 +94,7 @@ char* Token::typeToString() {
 	case Token::IfToken:
 		return "IfToken";
 	case Token::Error:
-			return "Error";
+		return "Error";
 	default:
 		return "[Unknown Type]";
 	}

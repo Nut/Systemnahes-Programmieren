@@ -53,6 +53,7 @@ private:
 	unsigned int line;
 	unsigned int column;
 	bool isSign(char c);
+	bool isNumber(char c);
 };
 
 #endif /* Automat_H_ */

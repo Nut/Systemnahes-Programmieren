@@ -22,7 +22,7 @@ class Buffer {
 		unsigned int getLine();
 		unsigned int getColumn();
 	private:
-		static const unsigned BUFFER_SIZE = 5;
+		static const unsigned BUFFER_SIZE = 1024;
 		const char* fileName;
 		ifstream file;
 		char* current_buffer;

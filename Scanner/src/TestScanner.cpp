@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include <iomanip>
+#include <ctype.h>
 
 int main(int argc, char **argv) {
 	Symboltable* symtab = new Symboltable;
@@ -9,7 +10,6 @@ int main(int argc, char **argv) {
 
 	ofstream output;
 	output.open(argv[2]);
-
 	Token* t;
 	while (t = scanner->nextToken()) {
 		switch(t->getType()) {

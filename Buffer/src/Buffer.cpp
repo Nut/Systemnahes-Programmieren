@@ -59,6 +59,9 @@ char Buffer::getChar() {
 
 void Buffer::ungetChar(unsigned int steps) {
 	column -= steps;
+	if (steps == 2) {
+		this->lastChar = this->current_buffer[index - 2];
+	}
 	if (steps > index) {
 		steps -= index;
 		index = BUFFER_SIZE - 1;
