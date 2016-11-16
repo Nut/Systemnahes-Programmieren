@@ -16,7 +16,9 @@ Buffer::Buffer(const char* fileName) {
 
 	this->index = 0;
 	this->isEndOfFile = false;
-
+	this->line = 1;
+	this->column = 0;
+	this->lastChar = NULL;
 	readFile();
 }
 
@@ -36,6 +38,11 @@ void Buffer::readFile() {
 }
 
 char Buffer::getChar() {
+	column++;
+	if (this->lastChar == '\n') {
+		this->line++;
+		this->column = 1;
+	}
 	if (this->current_buffer[index] == '\0') {
 		if (isEndOfFile) {
 			return '\0';
@@ -46,11 +53,12 @@ char Buffer::getChar() {
 		index = 0;
 		readFile();
 	}
-	return this->current_buffer[index++];
+	this->lastChar = this->current_buffer[index++];
+	return lastChar;
 }
 
 void Buffer::ungetChar(unsigned int steps) {
-	//steps++;
+	column -= steps;
 	if (steps > index) {
 		steps -= index;
 		index = BUFFER_SIZE - 1;
@@ -62,4 +70,12 @@ void Buffer::ungetChar(unsigned int steps) {
 		}
 	}
 	index -= steps;
+}
+
+unsigned int Buffer::getLine() {
+	return this->line;
+}
+
+unsigned int Buffer::getColumn() {
+	return this->column;
 }

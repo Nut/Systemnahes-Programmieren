@@ -7,8 +7,8 @@
 
 #include "../includes/Token.h"
 
-Token::Token(Token::TType type, int line, int column, int infoKey, int value,
-		char* symbol) {
+Token::Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned int value,
+		char symbol) {
 	this->type = type;
 	this->line = line;
 	this->column = column;
@@ -29,15 +29,15 @@ int Token::getLine() {
 	return this->line;
 }
 
-int Token::getValue() {
+unsigned int Token::getValue() {
 	return this->value;
 }
 
-int Token::getInfoKey() {
+unsigned int Token::getInfoKey() {
 	return this->infoKey;
 }
 
-char* Token::getSymbol() {
+char Token::getSymbol() {
 	return this->symbol;
 }
 

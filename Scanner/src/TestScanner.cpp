@@ -11,10 +11,10 @@ int main(int argc, char **argv) {
 	while (t = scanner->nextToken()) {
 		switch(t->getType()) {
 			case Token::Identifier:
-				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << std::setw(10) << " Lexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
+				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " Line: " << t->getLine() << " Column: " << t->getColumn() << std::setw(10) << " Lexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
 				break;
 			case Token::Integer:
-				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " " << endl;
+				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " Line: " << t->getLine() << " Column: " << t->getColumn() << std::setw(10) << " Value: " << t->getValue()<< endl;
 				break;
 			case Token::And:
 			case Token::Assign:
@@ -34,10 +34,10 @@ int main(int argc, char **argv) {
 			case Token::RightCurved:
 			case Token::LeftBracket:
 			case Token::RightBracket:
-				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " " << endl;
+				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " Line: " << t->getLine() << " Column: " << t->getColumn() << endl;
 				break;
 			case Token::Unknown:
-				cout << std::setw(14) << "Unknown Token " << std::setw(22) << "Symbol: " << t->getSymbol() << endl;
+				cout << std::setw(14) << "Unknown Token " << " 		   Line: " << t->getLine() << " Column: " << t->getColumn() << std::setw(22) << "Symbol: " << t->getSymbol() << endl;
 				break;
 			case Token::Null:
 				break;

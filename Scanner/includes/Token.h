@@ -38,22 +38,22 @@ public:
 		Unknown,
 		Null
 	};
-	Token(Token::TType type, int line, int column, int infoKey, int value, char* symbol);
+	Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned int value, char symbol);
 	virtual ~Token();
 	int getLine();
 	int getColumn();
-	int getValue();
-	int getInfoKey();
-	char* getSymbol();
+	unsigned int getValue();
+	unsigned int getInfoKey();
+	char getSymbol();
 	Token::TType getType();
 	char* typeToString();
 private:
 	Token::TType type;
 	int line;
 	int column;
-	int value;
-	int infoKey;
-	char* symbol;
+	unsigned int value;
+	unsigned int infoKey;
+	char symbol;
 };
 
 

@@ -19,7 +19,8 @@ class Buffer {
 		virtual ~Buffer();
 		char getChar();
 		void ungetChar(unsigned int steps);
-
+		unsigned int getLine();
+		unsigned int getColumn();
 	private:
 		static const unsigned BUFFER_SIZE = 5;
 		const char* fileName;
@@ -29,6 +30,9 @@ class Buffer {
 		unsigned int index;
 		bool isEndOfFile;
 		void readFile();
+		unsigned int line;
+		unsigned int column;
+		char lastChar;
 };
 
 #endif /* BUFFER_H_ */

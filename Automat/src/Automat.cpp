@@ -48,6 +48,14 @@ char* Automat::getLexem() {
 	return this->lexem;
 }
 
+unsigned int Automat::getLine() {
+	return this->line;
+}
+
+unsigned int Automat::getColumn() {
+	return this->column;
+}
+
 void Automat::reset() {
 	this->currentState = Start;
 	this->lastFinalState = Null;
@@ -74,9 +82,11 @@ bool Automat::isSign(char c) {
 	}
 }
 
-void Automat::read(char c) {
+void Automat::read(char c, unsigned int line, unsigned int column) {
 	switch (currentState) {
 		case Start:
+			this->line = line;
+			this->column = column;
 			if (isalpha(c)) {
 				this->currentState = Identifier;
 				this->lastFinalState = Identifier;
@@ -134,7 +144,7 @@ void Automat::read(char c) {
 				stop = true;
 			} else if (c == '*') {
 				this->currentState = CommentStart;
-				this->back++;
+				//this->back++;
 			} else {
 				if (c != '\0') {
 					this->back++;
@@ -175,29 +185,21 @@ void Automat::read(char c) {
 			stop = true;
 			break;
 		case CommentStart:
-			if (c == '*') {
+			if (c == '\0') {
+				this->lastFinalState = CommentFinal;
+				stop = true;
+			} else if (c == '*') {
 				this->currentState = CommentClose;
-				this->back++;
-			} else {
-				if (c != '\0') {
-					this->back++;
-				} else {
-					stop = true;
-				}
+				//this->back++;
 			}
 			break;
 		case CommentClose:
-			if (c == ':') {
+			if (c == ':' || c == '\0') {
 				this->lastFinalState = CommentFinal;
-				this->back = 0;
+				//this->back = 0;
 				stop = true;
 			} else {
-				if (c != '\0') {
-					this->currentState = CommentStart;
-					this->back++;
-				} else {
-					stop = true;
-				}
+				this->currentState = CommentStart;
 			}
 			break;
 	}

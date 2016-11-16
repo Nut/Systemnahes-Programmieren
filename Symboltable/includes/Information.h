@@ -11,6 +11,7 @@ class Information {
 
 	private:
 		char* name;
+		int myStrCmp(const char *s1, const char *s2);
 };
 
 

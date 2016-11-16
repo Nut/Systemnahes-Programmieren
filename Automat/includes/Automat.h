@@ -31,13 +31,15 @@ public:
 		};
 	Automat();
 	virtual ~Automat();
-	void read(char c);
+	void read(char c, unsigned int line, unsigned int column);
 	State getCurrentState();
 	State getLastFinalState();
 	void setLastFinalState(Automat::State state);
 	void setBack(int steps);
 	int getBack();
 	char* getLexem();
+	unsigned int getLine();
+	unsigned int getColumn();
 	bool isStop();
 	void reset();
 	void clearLexem();
@@ -48,6 +50,8 @@ private:
 	bool stop;
 	char* lexem;
 	int indexLexem;
+	unsigned int line;
+	unsigned int column;
 	bool isSign(char c);
 };
 

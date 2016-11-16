@@ -23,6 +23,7 @@ private:
 	Buffer* buffer;
 	Symboltable* symboltable;
 	Token* createToken();
+	unsigned int atoi(const char *c);
 };
 
 #endif /* SCANNER_H_ */
