@@ -4,17 +4,20 @@
 #include <iomanip>
 
 int main(int argc, char **argv) {
-
 	Symboltable* symtab = new Symboltable;
-	Scanner* scanner = new Scanner("Buffer/includes/test.txt", symtab);
+	Scanner* scanner = new Scanner(argv[1], symtab);
+
+	ofstream output;
+	output.open(argv[2]);
+
 	Token* t;
 	while (t = scanner->nextToken()) {
 		switch(t->getType()) {
 			case Token::Identifier:
-				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " Line: " << t->getLine() << " Column: " << t->getColumn() << std::setw(10) << " Lexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
+				output <<  "Token " << t->typeToString() << "\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
 				break;
 			case Token::Integer:
-				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " Line: " << t->getLine() << " Column: " << t->getColumn() << std::setw(10) << " Value: " << t->getValue()<< endl;
+				output << "Token " << t->typeToString() << "\t\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tValue: " << t->getValue()<< endl;
 				break;
 			case Token::And:
 			case Token::Assign:
@@ -34,14 +37,20 @@ int main(int argc, char **argv) {
 			case Token::RightCurved:
 			case Token::LeftBracket:
 			case Token::RightBracket:
-				cout << std::setw(14) << "Token " << std::setw(12) << t->typeToString() << " Line: " << t->getLine() << " Column: " << t->getColumn() << endl;
+				output  << "Token " << t->typeToString() << "\t\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn() << endl;
 				break;
 			case Token::Unknown:
-				cout << std::setw(14) << "Unknown Token " << " 		   Line: " << t->getLine() << " Column: " << t->getColumn() << std::setw(22) << "Symbol: " << t->getSymbol() << endl;
+				output  << "Token Unknown  " << "\t\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn()  << "\t\tSymbol: " << t->getSymbol() << endl;
+				cerr << "Token Unknown  " << "\t\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn()  << "\t\tSymbol: " << t->getSymbol() << endl;
 				break;
 			case Token::Null:
 				break;
+			case Token::Error:
+				cerr << "error, overflow in line " << t->getLine()<< " column " << t->getColumn() << endl;
+				break;
 		}
 	}
+
+	output.close();
 }
 

@@ -144,7 +144,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				stop = true;
 			} else if (c == '*') {
 				this->currentState = CommentStart;
-				//this->back++;
+				this->back++;
 			} else {
 				if (c != '\0') {
 					this->back++;
@@ -190,13 +190,13 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				stop = true;
 			} else if (c == '*') {
 				this->currentState = CommentClose;
-				//this->back++;
+				this->back++;
 			}
 			break;
 		case CommentClose:
 			if (c == ':' || c == '\0') {
 				this->lastFinalState = CommentFinal;
-				//this->back = 0;
+				this->back = 0;
 				stop = true;
 			} else {
 				this->currentState = CommentStart;

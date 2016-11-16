@@ -7,6 +7,8 @@
 
 #include "../includes/Scanner.h"
 #include <cstring>
+#include <cstdlib>
+#include <errno.h>
 
 Scanner::Scanner(char* filename, Symboltable* symtab) {
 	this->automat = new Automat();
@@ -40,8 +42,14 @@ Token* Scanner::createToken() {
 			return new Token(Token::Unknown, automat->getLine(), automat->getColumn(), NULL, NULL, *automat->getLexem());
 		case Automat::Identifier:
 			return new Token(Token::Identifier, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-		case Automat::Integer:
-			return new Token(Token::Integer, automat->getLine(), automat->getColumn(), NULL, atoi(automat->getLexem()) , NULL);
+		case Automat::Integer: {
+			long temp = std::strtol(automat->getLexem(), NULL, 10);
+			if (errno == ERANGE) {
+				return new Token(Token::Error, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
+			} else{
+				return new Token(Token::Integer, automat->getLine(), automat->getColumn(), NULL, std::strtol(automat->getLexem(), NULL, 10) , NULL);
+			}
+		}
 		case Automat::DoubleAnd:
 			return new Token(Token::And,automat->getLine(), automat->getColumn(), NULL, NULL , NULL);
 		case Automat::Equal:
@@ -83,19 +91,4 @@ Token* Scanner::createToken() {
 				return new Token(Token::RightBracket, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 			}
 	}
-}
-
-unsigned int Scanner::atoi(const char *c) {
-    int value = 0;
-    int sign = 1;
-    if (*c == '+' || *c == '-') {
-       if (*c == '-') sign = -1;
-       c++;
-    }
-    while (isdigit(*c)) {
-        value *= 10;
-        value += (int) (*c - '0');
-        c++;
-    }
-    return value * sign;
 }

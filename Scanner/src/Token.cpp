@@ -7,7 +7,7 @@
 
 #include "../includes/Token.h"
 
-Token::Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned int value,
+Token::Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned long value,
 		char symbol) {
 	this->type = type;
 	this->line = line;
@@ -29,7 +29,7 @@ int Token::getLine() {
 	return this->line;
 }
 
-unsigned int Token::getValue() {
+unsigned long Token::getValue() {
 	return this->value;
 }
 
@@ -93,6 +93,8 @@ char* Token::typeToString() {
 		return "WhileToken";
 	case Token::IfToken:
 		return "IfToken";
+	case Token::Error:
+			return "Error";
 	default:
 		return "[Unknown Type]";
 	}

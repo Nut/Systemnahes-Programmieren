@@ -36,13 +36,14 @@ public:
 		WhileToken,
 		IfToken,
 		Unknown,
-		Null
+		Null,
+		Error
 	};
-	Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned int value, char symbol);
+	Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned long value, char symbol);
 	virtual ~Token();
 	int getLine();
 	int getColumn();
-	unsigned int getValue();
+	unsigned long getValue();
 	unsigned int getInfoKey();
 	char getSymbol();
 	Token::TType getType();
@@ -51,7 +52,7 @@ private:
 	Token::TType type;
 	int line;
 	int column;
-	unsigned int value;
+	unsigned long value;
 	unsigned int infoKey;
 	char symbol;
 };
