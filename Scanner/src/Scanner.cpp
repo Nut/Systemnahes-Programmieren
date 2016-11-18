@@ -81,7 +81,7 @@ Token* Scanner::createToken() {
 				return new Token(Token::LeftParent, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 			} else if (*automat->getLexem() == ')') {
 				return new Token(Token::RightParent, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
-			} else if (*automat->getLexem() == ') {') {
+			} else if (*automat->getLexem() == '{') {
 				return new Token(Token::LeftCurved, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 			} else if (*automat->getLexem() == '}') {
 				return new Token(Token::RightCurved, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
