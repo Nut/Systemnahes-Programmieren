@@ -1,5 +1,8 @@
 #include "../includes/Symboltable.h"
 #include <cstring>
+#include <iostream>
+
+using namespace std;
 
 Symboltable::Symboltable() {
 	stringTable = new StringTable();
@@ -7,6 +10,7 @@ Symboltable::Symboltable() {
 	for (unsigned int i = 0; i < TABLE_SIZE; i++) {
 		table[i] = NULL;
 	}
+	initSymbols();
 }
 
 Symboltable::~Symboltable() {
@@ -27,21 +31,26 @@ Symboltable::~Symboltable() {
 
 unsigned int Symboltable::insert(char* lexem) {
 	unsigned int hashValue = hash(lexem);
-	SymtabEntry* tmpSymtabEntry = lookup(hashValue);
+	SymtabEntry* tmpSymtabEntry = table[hashValue % TABLE_SIZE];
 
 	if (tmpSymtabEntry == NULL) { //noch keinen Eintrag in der HashTable gefunden
 		char* p = stringTable->insert(lexem, strlen(lexem));
-		table[hashValue % TABLE_SIZE] = new SymtabEntry(new Information(p));
+		table[hashValue % TABLE_SIZE] = new SymtabEntry(new Information(p, hashValue));
 	} else {
-		while (tmpSymtabEntry->getNext() != NULL) {
+		while (tmpSymtabEntry != NULL) {
 			if (tmpSymtabEntry->getInfo()->compareLex(lexem)) {
 				return hashValue;
 			}
 			tmpSymtabEntry = tmpSymtabEntry->getNext();
 		}
 
+		tmpSymtabEntry = table[hashValue % TABLE_SIZE];
+		while (tmpSymtabEntry->getNext() != NULL) {
+			tmpSymtabEntry = tmpSymtabEntry->getNext();
+		}
+
 		char* p = stringTable->insert(lexem, strlen(lexem));
-		SymtabEntry* newEntry = new SymtabEntry(new Information(p));
+		SymtabEntry* newEntry = new SymtabEntry(new Information(p, hashValue));
 		tmpSymtabEntry->setNext(newEntry);
 	}
 
@@ -49,7 +58,14 @@ unsigned int Symboltable::insert(char* lexem) {
 }
 
 SymtabEntry* Symboltable::lookup(unsigned int key) {
-	return table[key % TABLE_SIZE];
+	SymtabEntry* element = table[key % TABLE_SIZE];
+	while (element != NULL) {
+		if (element->getInfo()->getKey() == key) {
+			return element;
+		}
+		element = element->getNext();
+	}
+	return element;
 }
 
 unsigned int Symboltable::hash(const char* s, unsigned int seed) {
@@ -58,4 +74,11 @@ unsigned int Symboltable::hash(const char* s, unsigned int seed) {
 		hash = hash * 101 + *s++;
 	}
 	return hash;
+}
+
+void Symboltable::initSymbols() {
+	insert("if");
+	insert("IF");
+	insert("while");
+	insert("WHILE");
 }

@@ -16,6 +16,7 @@ class Symboltable {
 		StringTable* stringTable;
 		SymtabEntry** table;
 		unsigned int hash(const char* s, unsigned int seed = 0);
+		void initSymbols();
 };
 
 #endif /* SYMBOLTABLE_H_ */

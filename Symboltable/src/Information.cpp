@@ -1,8 +1,9 @@
 #include "../includes/Information.h"
 #include <string.h>
 
-Information::Information(char* lexem) {
+Information::Information(char* lexem, unsigned int key) {
 	this->name = lexem;
+	this->key = key;
 }
 
 Information::~Information() {
@@ -37,4 +38,8 @@ int Information::myStrCmp(const char *s1, const char *s2) {
     if (*p2 != '\0') return -1;
 
     return 0;
+}
+
+unsigned int Information::getKey() {
+	return this->key;
 }

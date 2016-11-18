@@ -10,19 +10,23 @@ int main(int argc, char **argv) {
 
 	cout << "Start" << endl;
 
-	char* str1 = "hello";
-	char* str2 = "world";
-	char* str3 = "hello";
+	char* str1 = "with";
+	char* str2 = "waste";
+	//char* str3 = "hello";
 
 	unsigned int key1 = st.insert(str1);
 	unsigned int key2 = st.insert(str2);
-	unsigned int key3 = st.insert(str3);
+	//unsigned int key3 = st.insert(str3);
+
+	cout << key1 << endl;
+	cout << key2 << endl;
+
 
 	cout << "sym1: "<< st.lookup(key1)->getInfo()->getName() << endl;
 	cout << "sym2: "<< st.lookup(key2)->getInfo()->getName() << endl;
-	cout << "sym3: "<< st.lookup(key3)->getInfo()->getName() << endl;
+	//cout << "sym3: "<< st.lookup(key3)->getInfo()->getName() << endl;
 
-	bool test = (st.lookup(key1)->getInfo()->getName() == st.lookup(key3)->getInfo()->getName());
+	bool test = (st.lookup(key1)->getInfo()->getName() == st.lookup(key2)->getInfo()->getName());
 	cout << test << endl;
 
 

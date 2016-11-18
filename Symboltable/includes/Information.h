@@ -4,13 +4,15 @@
 
 class Information {
 	public:
-		Information(char* lexem);
+		Information(char* lexem, unsigned int key);
 		virtual ~Information();
 		char* getName();
 		bool compareLex(char* lexem);
+		unsigned int getKey();
 
 	private:
 		char* name;
+		unsigned int key;
 		int myStrCmp(const char *s1, const char *s2);
 };
 
