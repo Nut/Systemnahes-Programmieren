@@ -22,7 +22,7 @@ Scanner::~Scanner() {
 }
 
 Token* Scanner::nextToken() {
-	while(!automat->isStop()) {
+	while (!automat->isStop()) {
 		char symbol = buffer->getChar();
 		unsigned int line = buffer->getLine();
 		unsigned int column = buffer->getColumn();
@@ -35,7 +35,7 @@ Token* Scanner::nextToken() {
 }
 
 Token* Scanner::createToken() {
-	switch(automat->getLastFinalState()) {
+	switch (automat->getLastFinalState()) {
 		case Automat::Eof:
 			return NULL;
 		case Automat::Error:
@@ -43,11 +43,12 @@ Token* Scanner::createToken() {
 		case Automat::Identifier:
 			return new Token(Token::Identifier, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
 		case Automat::Integer: {
+			errno = 0;
 			long temp = std::strtol(automat->getLexem(), NULL, 10);
 			if (errno == ERANGE) {
 				return new Token(Token::Error, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 			} else{
-				return new Token(Token::Integer, automat->getLine(), automat->getColumn(), NULL, std::strtol(automat->getLexem(), NULL, 10) , NULL);
+				return new Token(Token::Integer, automat->getLine(), automat->getColumn(), NULL, temp , NULL);
 			}
 		}
 		case Automat::DoubleAnd:

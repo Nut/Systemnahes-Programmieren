@@ -57,15 +57,15 @@ unsigned int Symboltable::insert(char* lexem) {
 	return hashValue;
 }
 
-SymtabEntry* Symboltable::lookup(unsigned int key) {
+Information* Symboltable::lookup(unsigned int key) {
 	SymtabEntry* element = table[key % TABLE_SIZE];
 	while (element != NULL) {
 		if (element->getInfo()->getKey() == key) {
-			return element;
+			return element->getInfo();
 		}
 		element = element->getNext();
 	}
-	return element;
+	return element->getInfo();
 }
 
 unsigned int Symboltable::hash(const char* s, unsigned int seed) {

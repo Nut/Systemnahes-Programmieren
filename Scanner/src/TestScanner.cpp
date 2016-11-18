@@ -12,9 +12,9 @@ int main(int argc, char **argv) {
 	output.open(argv[2]);
 	Token* t;
 	while (t = scanner->nextToken()) {
-		switch(t->getType()) {
+		switch (t->getType()) {
 			case Token::Identifier:
-				output <<  "Token " << t->typeToString() << "\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << symtab->lookup(t->getInfoKey())->getInfo()->getName() << endl;
+				output <<  "Token " << t->typeToString() << "\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << symtab->lookup(t->getInfoKey())->getName() << endl;
 				break;
 			case Token::Integer:
 				output << "Token " << t->typeToString() << "\t\tLine: " << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tValue: " << t->getValue()<< endl;
