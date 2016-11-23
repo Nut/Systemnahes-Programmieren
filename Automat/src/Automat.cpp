@@ -109,7 +109,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				this->lastFinalState = Sign;
 				lexem[indexLexem++] = c;
 				stop = true;
-			} else if (c == ' ' || c == '\n') {
+			} else if (c == ' ' || c == '\n' || c == '\t') {
 				this->currentState = Start;
 			} else if (c == '\0') {
 				this->lastFinalState = Eof;
