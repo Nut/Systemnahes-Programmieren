@@ -6,8 +6,6 @@
  */
 
 #include <fstream>
-#include <iostream>
-
 using namespace std;
 
 #ifndef BUFFER_H_
@@ -29,10 +27,10 @@ class Buffer {
 		char* previous_buffer;
 		unsigned int index;
 		bool isEndOfFile;
-		void readFile();
 		unsigned int line;
 		unsigned int column;
 		char lastChar;
+		void readFile();
 };
 
 #endif /* BUFFER_H_ */

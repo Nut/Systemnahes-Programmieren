@@ -34,8 +34,6 @@ public:
 	void read(char c, unsigned int line, unsigned int column);
 	State getCurrentState();
 	State getLastFinalState();
-	void setLastFinalState(Automat::State state);
-	void setBack(int steps);
 	int getBack();
 	char* getLexem();
 	unsigned int getLine();
@@ -53,7 +51,8 @@ private:
 	unsigned int line;
 	unsigned int column;
 	bool isSign(char c);
-	bool isNumber(char c);
+	bool isDigit(char c);
+	bool isAlpha(char c);
 };
 
 #endif /* Automat_H_ */

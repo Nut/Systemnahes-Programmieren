@@ -1,0 +1,50 @@
+Token Integer		Line:	1		Column: 1		Value: 12345
+Token Identifier	Line:	2		Column: 1		Lexem: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Token Identifier	Line:	3		Column: 1		Lexem: abcdefghijklmnopqrstuvwxyz
+Token Plus		Line:	4		Column: 1
+Token Minus		Line:	4		Column: 4
+Token Star		Line:	4		Column: 7
+Token Colon		Line:	4		Column: 10
+Token LessThan		Line:	4		Column: 13
+Token GreaterThan	Line:	4		Column: 15
+Token Equal		Line:	4		Column: 18
+Token Assign		Line:	4		Column: 21
+Token ColonBetweenEqual	Line:	4		Column: 24
+Token Exclamation	Line:	4		Column: 28
+Token And		Line:	4		Column: 30
+Token Semicolon		Line:	4		Column: 33
+Token LeftParent	Line:	4		Column: 35
+Token RightParent	Line:	4		Column: 37
+Token LeftCurved	Line:	4		Column: 39
+Token RightCurved	Line:	4		Column: 41
+Token LeftBracket	Line:	4		Column: 43
+Token RightBracket	Line:	4		Column: 45
+Token Unknown  		Line:	6		Column: 1		Symbol: ?
+Token Unknown  		Line:	6		Column: 3		Symbol: $
+Token Unknown  		Line:	6		Column: 5		Symbol: &
+Token Unknown  		Line:	6		Column: 7		Symbol: #
+Token Unknown  		Line:	6		Column: 9		Symbol: .
+Token Unknown  		Line:	6		Column: 11		Symbol: ,
+Token Integer		Line:	8		Column: 1		Value: 1234567890
+Token Integer		Line:	9		Column: 1		Value: 0
+Token Integer		Line:	10		Column: 1		Value: 123
+Token Identifier	Line:	12		Column: 1		Lexem: dies
+Token Identifier	Line:	12		Column: 6		Lexem: ist
+Token Identifier	Line:	12		Column: 10		Lexem: ein
+Token Identifier	Line:	12		Column: 42		Lexem: Kommentar
+Token Identifier	Line:	14		Column: 1		Lexem: print
+Token Identifier	Line:	15		Column: 1		Lexem: read
+Token Identifier	Line:	16		Column: 1		Lexem: printread
+Token Identifier	Line:	17		Column: 1		Lexem: readprint
+Token Identifier	Line:	18		Column: 1		Lexem: ABCDEFGHIJK
+Token Unknown  		Line:	18		Column: 12		Symbol: $
+Token Identifier	Line:	18		Column: 13		Lexem: LMNOPQRSTUVWXYZ
+Token Integer		Line:	20		Column: 1		Value: 123
+Token Identifier	Line:	20		Column: 4		Lexem: Abc
+Token Identifier	Line:	21		Column: 1		Lexem: Abc123
+Token Identifier	Line:	25		Column: 1		Lexem: int
+Token Identifier	Line:	25		Column: 5		Lexem: test
+Token Assign		Line:	25		Column: 10
+Token Integer		Line:	25		Column: 13		Value: 2
+Token Semicolon		Line:	25		Column: 14
+Token Integer		Line:	27		Column: 1		Value: 123

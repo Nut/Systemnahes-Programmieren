@@ -7,7 +7,6 @@
 
 #ifndef SCANNER_INCLUDES_TOKEN_H_
 #define SCANNER_INCLUDES_TOKEN_H_
-#include <cstring>
 
 class Token {
 public:
@@ -33,8 +32,6 @@ public:
 		RightCurved,
 		LeftBracket,
 		RightBracket,
-		WhileToken,
-		IfToken,
 		Unknown,
 		Null,
 		Error

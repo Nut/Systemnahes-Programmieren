@@ -1,6 +1,5 @@
 #include "../includes/Symboltable.h"
 #include <cstring>
-#include <iostream>
 
 using namespace std;
 
@@ -34,7 +33,7 @@ unsigned int Symboltable::insert(char* lexem) {
 	SymtabEntry* tmpSymtabEntry = table[hashValue % TABLE_SIZE];
 
 	if (tmpSymtabEntry == NULL) { //noch keinen Eintrag in der HashTable gefunden
-		char* p = stringTable->insert(lexem, strlen(lexem));
+		char* p = stringTable->insert(lexem, stringLength(lexem));
 		table[hashValue % TABLE_SIZE] = new SymtabEntry(new Information(p, hashValue));
 	} else {
 		while (tmpSymtabEntry != NULL) {
@@ -74,6 +73,16 @@ unsigned int Symboltable::hash(const char* s, unsigned int seed) {
 		hash = hash * 101 + *s++;
 	}
 	return hash;
+}
+
+int Symboltable::stringLength(char* lexem) {
+    int length = 0;
+    const unsigned char *tmp = (const unsigned char *)lexem;
+    while (*tmp != '\0') {
+        tmp++;
+        length++;
+    }
+    return length;
 }
 
 void Symboltable::initSymbols() {

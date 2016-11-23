@@ -8,7 +8,7 @@
 #include "../includes/Scanner.h"
 #include <cstring>
 #include <cstdlib>
-#include <errno.h>
+#include <cerrno>
 
 Scanner::Scanner(char* filename, Symboltable* symtab) {
 	this->automat = new Automat();
@@ -36,8 +36,6 @@ Token* Scanner::nextToken() {
 
 Token* Scanner::createToken() {
 	switch (automat->getLastFinalState()) {
-		case Automat::Eof:
-			return NULL;
 		case Automat::Error:
 			return new Token(Token::Unknown, automat->getLine(), automat->getColumn(), NULL, NULL, *automat->getLexem());
 		case Automat::Identifier:
@@ -91,5 +89,8 @@ Token* Scanner::createToken() {
 			} else if (*automat->getLexem() == ']') {
 				return new Token(Token::RightBracket, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 			}
+		case Automat::Eof:
+		default:
+			return NULL;
 	}
 }

@@ -50,7 +50,7 @@ OBJS = $(OBJDIR)/Scanner.o \
 	
 	
 # Variante mit guten Makefile-Kenntnissen
-makeTestScanner: $(OBJS) ScannerTest
+makeStartScanner: $(OBJS) ScannerStart
 
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp $(HEADERDIR)/%.h
@@ -62,15 +62,15 @@ $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp $(HEADERDIR)/%.h
 # $< erste abhaengigkeit
 
 
-ScannerTest: $(SRCDIR)/TestScanner.cpp $(HEADERDIR)/Scanner.h
-	g++ -g  -c -Wall src/TestScanner.cpp -o $(BINDIRTEST)/TestScanner.o  
-	g++ -g $(BINDIRTEST)/TestScanner.o $(OBJDIR)/*.o $(AUTOMATDIR)/$(OBJDIR)/*.o $(BUFFERDIR)/$(OBJDIR)/*.o $(SYMBOLTABLEDIR)/$(OBJDIR)/*.o -o $(BINDIRTEST)/ScannerTest
+ScannerStart: $(SRCDIR)/StartScanner.cpp $(HEADERDIR)/Scanner.h
+	g++ -g  -c -Wall src/StartScanner.cpp -o $(BINDIRTEST)/StartScanner.o  
+	g++ -g $(BINDIRTEST)/StartScanner.o $(OBJDIR)/*.o $(AUTOMATDIR)/$(OBJDIR)/*.o $(BUFFERDIR)/$(OBJDIR)/*.o $(SYMBOLTABLEDIR)/$(OBJDIR)/*.o -o $(BINDIRTEST)/ScannerStart
 
 # loeschen aller files im verzeichnis $(OBJDIR) und $(BINDIRTEST) und neu erstellen
 
 cleanScanner:
 	rm -rf $(OBJDIR)/*.o
 	rm -rf $(BINDIRTEST)/*
-	$(MAKE) makeTestScanner
+	$(MAKE) makeStartScanner
 
 

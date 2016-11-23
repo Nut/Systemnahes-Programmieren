@@ -1,5 +1,5 @@
 #include "../includes/SymtabEntry.h"
-#include <string.h>
+#include <cstring>
 
 SymtabEntry::SymtabEntry(Information* info) {
 	this->info = info;

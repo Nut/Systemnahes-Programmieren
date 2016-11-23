@@ -4,20 +4,12 @@
  */
 
 #include "../includes/Automat.h"
-#include <iostream>
-#include <cstring>
-#include <ctype.h>
 
 Automat::Automat() {
-	this->currentState = Start;
-	this->lastFinalState = Null;
-	this->back = 0;
-	this->stop = false;
-	clearLexem();
+	reset();
 }
 
 Automat::~Automat() {
-	// TODO Auto-generated destructor stub
 }
 
 Automat::State Automat::getCurrentState() {
@@ -28,16 +20,8 @@ Automat::State Automat::getLastFinalState() {
 	return this->lastFinalState;
 }
 
-void Automat::setLastFinalState(Automat::State state) {
-	this->lastFinalState = state;
-}
-
 int Automat::getBack() {
 	return this->back;
-}
-
-void Automat::setBack(int steps) {
-	this->back = steps;
 }
 
 bool Automat::isStop() {
@@ -82,9 +66,17 @@ bool Automat::isSign(char c) {
 	}
 }
 
-bool Automat::isNumber(char c) {
+bool Automat::isDigit(char c) {
 	if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' ||
 	    c == '6' || c == '7' || c == '8' || c == '9') {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool Automat::isAlpha(char c) {
+	if ((c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A')) {
 		return true;
 	} else {
 		return false;
@@ -96,11 +88,11 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 		case Start:
 			this->line = line;
 			this->column = column;
-			if (isalpha(c)) {
+			if (isAlpha(c)) {
 				this->currentState = Identifier;
 				this->lastFinalState = Identifier;
 				lexem[indexLexem++] = c;
-			} else if (isNumber(c)) {
+			} else if (isDigit(c)) {
 				this->currentState = Integer;
 				this->lastFinalState = Integer;
 				lexem[indexLexem++] = c;
@@ -129,7 +121,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 			}
 			break;
 		case Identifier:
-			if (!(isalpha(c) || isNumber(c))) {
+			if (!(isAlpha(c) || isDigit(c))) {
 				if (c != '\0' && c != '\n') {
 					this->back++;
 				}
@@ -139,7 +131,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 			}
 			break;
 		case Integer:
-			if (!isNumber(c)) {
+			if (!isDigit(c)) {
 				if (c != '\0' && c != '\n') {
 					this->back++;
 				}

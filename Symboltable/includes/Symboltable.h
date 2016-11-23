@@ -1,7 +1,7 @@
 #ifndef SYMBOLTABLE_H_
 #define SYMBOLTABLE_H_
 
-#include "../includes/SymtabEntry.h"
+#include "SymtabEntry.h"
 #include "StringTable.h"
 
 class Symboltable {
@@ -17,6 +17,7 @@ class Symboltable {
 		SymtabEntry** table;
 		unsigned int hash(const char* s, unsigned int seed = 0);
 		void initSymbols();
+		int stringLength(char* lexem);
 };
 
 #endif /* SYMBOLTABLE_H_ */

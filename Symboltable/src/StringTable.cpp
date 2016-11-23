@@ -1,6 +1,6 @@
 #include "../includes/StringTable.h"
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
 
 StringTable::StringTable() {
 	this->first = (StringTabNode*) malloc(sizeof(StringTabNode));

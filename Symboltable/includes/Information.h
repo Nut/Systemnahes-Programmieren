@@ -13,7 +13,7 @@ class Information {
 	private:
 		char* name;
 		unsigned int key;
-		int myStrCmp(const char *s1, const char *s2);
+		int stringCompare(const char *s1, const char *s2);
 };
 
 

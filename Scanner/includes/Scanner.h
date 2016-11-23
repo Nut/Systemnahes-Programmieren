@@ -18,6 +18,7 @@ public:
 	Scanner(char* filename, Symboltable* symtab);
 	virtual ~Scanner();
 	Token* nextToken();
+	int main(int argc, char **argv);
 private:
 	Automat* automat;
 	Buffer* buffer;

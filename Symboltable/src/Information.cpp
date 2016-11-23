@@ -1,5 +1,4 @@
 #include "../includes/Information.h"
-#include <string.h>
 
 Information::Information(char* lexem, unsigned int key) {
 	this->name = lexem;
@@ -14,7 +13,7 @@ char* Information::getName() {
 }
 
 bool Information::compareLex(char* lexem) {
-	int x = myStrCmp(lexem, name);
+	int x = stringCompare(lexem, name);
 	if (x == 0) {
 		return true;
 	}
@@ -22,7 +21,7 @@ bool Information::compareLex(char* lexem) {
 	return false;
 }
 
-int Information::myStrCmp(const char *s1, const char *s2) {
+int Information::stringCompare(const char *s1, const char *s2) {
     const unsigned char *p1 = (const unsigned char *)s1;
     const unsigned char *p2 = (const unsigned char *)s2;
 
