@@ -38,7 +38,7 @@ unsigned int Symboltable::insert(char* lexem) {
 	} else {
 		while (tmpSymtabEntry != NULL) {
 			if (tmpSymtabEntry->getInfo()->compareLex(lexem)) {
-				return hashValue;
+				return hashValue; /* pointer zurück geben */
 			}
 			tmpSymtabEntry = tmpSymtabEntry->getNext();
 		}
