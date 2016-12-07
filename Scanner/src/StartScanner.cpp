@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	while ((t = scanner->nextToken())) {
 		switch (t->getType()) {
 			case Token::Identifier:
-				output << "Token " << t->typeToString() << "\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << symtab->lookup(t->getInfoKey())->getName() << endl;
+				output << "Token " << t->typeToString() << "\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << t->getInfo()->getName() << endl;
 				break;
 			case Token::Integer:
 				output << "Token " << t->typeToString() << "\t\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tValue: " << t->getValue()<< endl;
@@ -24,6 +24,11 @@ int main(int argc, char **argv) {
 			case Token::LessThan:
 			case Token::Equal:
 			case Token::Semicolon:
+			case Token::While:
+			case Token::If:
+			case Token::Else:
+			case Token::Write:
+			case Token::Read:
 				output  << "Token " << t->typeToString() << "\t\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << endl;
 				break;
 			case Token::ColonBetweenEqual:

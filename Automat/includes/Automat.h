@@ -47,12 +47,14 @@ private:
 	int back;
 	bool stop;
 	char* lexem;
+	int sizeLexem;
 	int indexLexem;
 	unsigned int line;
 	unsigned int column;
 	bool isSign(char c);
 	bool isDigit(char c);
 	bool isAlpha(char c);
+	void addCharToLexem(char c);
 };
 
 #endif /* Automat_H_ */

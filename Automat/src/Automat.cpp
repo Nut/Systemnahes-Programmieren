@@ -50,10 +50,26 @@ void Automat::reset() {
 
 void Automat::clearLexem() {
 	this->indexLexem = 0;
+	this->sizeLexem = 128;
 	delete[] lexem;
-    this->lexem = new char[1024];
-    for (int i = 0; i <= 1024; ++i) {
+    this->lexem = new char[sizeLexem];
+    for (int i = 0; i <= sizeLexem; ++i) {
     	lexem[i] = '\0';
+	}
+}
+
+void Automat::addCharToLexem(char c) {
+	if (indexLexem < sizeLexem) {
+		lexem[indexLexem++] = c;
+	} else {
+		sizeLexem++;
+		char* tmp = this->lexem;
+		this->lexem = new char[sizeLexem];
+		lexem[sizeLexem] = '\0';
+		for (int i = 0; i < sizeLexem - 1 ; i++) {
+			this->lexem[i] = tmp[i];
+		}
+		lexem[indexLexem++] = c;
 	}
 }
 
@@ -91,23 +107,23 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 			if (isAlpha(c)) {
 				this->currentState = Identifier;
 				this->lastFinalState = Identifier;
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 			} else if (isDigit(c)) {
 				this->currentState = Integer;
 				this->lastFinalState = Integer;
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 			} else if (c == '=') {
 				this->currentState = Equal;
 				this->lastFinalState = Equal;
 			} else if (c == '&') {
 				this->currentState = And;
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 			} else if (c == ':') {
 				this->currentState = Colon;
 				this->lastFinalState = Colon;
 			} else if (isSign(c)) {
 				this->lastFinalState = Sign;
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 				stop = true;
 			} else if (c == ' ' || c == '\n' || c == '\t') {
 				this->currentState = Start;
@@ -116,7 +132,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				stop = true;
 			} else {
 				this->lastFinalState = Error;
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 				stop = true;
 			}
 			break;
@@ -127,7 +143,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				}
 				stop = true;
 			} else {
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 			}
 			break;
 		case Integer:
@@ -137,7 +153,7 @@ void Automat::read(char c, unsigned int line, unsigned int column) {
 				}
 				stop = true;
 			} else {
-				lexem[indexLexem++] = c;
+				addCharToLexem(c);
 			}
 			break;
 		case Colon:

@@ -7,6 +7,7 @@
 
 #ifndef SCANNER_INCLUDES_TOKEN_H_
 #define SCANNER_INCLUDES_TOKEN_H_
+#include "../../Symboltable/includes/Information.h"
 
 class Token {
 public:
@@ -42,12 +43,12 @@ public:
 		Null,
 		Error
 	};
-	Token(Token::TType type, int line, int column, unsigned int infoKey, unsigned long value, char symbol);
+	Token(Token::TType type, int line, int column, Information* info, unsigned long value, char symbol);
 	virtual ~Token();
 	int getLine();
 	int getColumn();
 	unsigned long getValue();
-	unsigned int getInfoKey();
+	Information* getInfo();
 	char getSymbol();
 	Token::TType getType();
 	char* typeToString();
@@ -56,7 +57,7 @@ private:
 	int line;
 	int column;
 	unsigned long value;
-	unsigned int infoKey;
+	Information* info;
 	char symbol;
 };
 

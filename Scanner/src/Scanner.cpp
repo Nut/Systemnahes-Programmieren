@@ -57,30 +57,18 @@ Token* Scanner::createToken() {
 		case Automat::Error:
 			return new Token(Token::Unknown, automat->getLine(), automat->getColumn(), NULL, NULL, *automat->getLexem());
 		case Automat::Identifier:
-			if (stringCompare(automat->getLexem(), whileUpper) == 1) {
-
+			if (stringCompare(automat->getLexem(), "WHILE") == 0 | stringCompare(automat->getLexem(), "while") == 0) {
 				return new Token(Token::While, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-
-			} else if (automat->getLexem() == "ELSE" | automat->getLexem() == "else"){
-
+			} else 	if (stringCompare(automat->getLexem(), "ELSE") == 0 | stringCompare(automat->getLexem(), "else") == 0) {
 				return new Token(Token::Else, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-
-			} else if (automat->getLexem() == "IF" | automat->getLexem() == "if"){
-
+			} else 	if (stringCompare(automat->getLexem(), "IF") == 0 | stringCompare(automat->getLexem(), "if") == 0) {
 				return new Token(Token::If, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-
-			} else if (automat->getLexem() == "write"){
-
+			} else if (stringCompare(automat->getLexem(), "write") == 0){
 				return new Token(Token::Write, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-
-			} else if (automat->getLexem() == "read"){
-
+			} else if (stringCompare(automat->getLexem(), "read") == 0){
 				return new Token(Token::Read, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-
 			} else {
-
 				return new Token(Token::Identifier, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
-
 			}
 
 		case Automat::Integer: {
