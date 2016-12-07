@@ -34,12 +34,55 @@ Token* Scanner::nextToken() {
 	return token;
 }
 
+int Scanner::stringCompare( const char *s1, const char *s2) {
+	const unsigned char *p1 = (const unsigned char *)s1;
+    const unsigned char *p2 = (const unsigned char *)s2;
+
+    while (*p1 != '\0') {
+        if (*p2 == '\0') return  1;
+        if (*p2 > *p1)   return -1;
+        if (*p1 > *p2)   return  1;
+
+        p1++;
+        p2++;
+    }
+
+    if (*p2 != '\0') return -1;
+
+    return 0;
+}
+
 Token* Scanner::createToken() {
 	switch (automat->getLastFinalState()) {
 		case Automat::Error:
 			return new Token(Token::Unknown, automat->getLine(), automat->getColumn(), NULL, NULL, *automat->getLexem());
 		case Automat::Identifier:
-			return new Token(Token::Identifier, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+			if (stringCompare(automat->getLexem(), whileUpper) == 1) {
+
+				return new Token(Token::While, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+
+			} else if (automat->getLexem() == "ELSE" | automat->getLexem() == "else"){
+
+				return new Token(Token::Else, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+
+			} else if (automat->getLexem() == "IF" | automat->getLexem() == "if"){
+
+				return new Token(Token::If, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+
+			} else if (automat->getLexem() == "write"){
+
+				return new Token(Token::Write, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+
+			} else if (automat->getLexem() == "read"){
+
+				return new Token(Token::Read, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+
+			} else {
+
+				return new Token(Token::Identifier, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+
+			}
+
 		case Automat::Integer: {
 			errno = 0;
 			long temp = std::strtol(automat->getLexem(), NULL, 10);

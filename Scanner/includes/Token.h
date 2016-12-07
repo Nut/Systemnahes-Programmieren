@@ -12,6 +12,12 @@ class Token {
 public:
 
 	enum TType {
+		While,
+		Else,
+		Int,
+		Read,
+		Write,
+		If,
 		Identifier,
 		Assign,
 		Integer,

@@ -9,11 +9,11 @@ class Information {
 		char* getName();
 		bool compareLex(char* lexem);
 		unsigned int getKey();
+		int stringCompare(const char *s1, const char *s2);
 
 	private:
 		char* name;
 		unsigned int key;
-		int stringCompare(const char *s1, const char *s2);
 };
 
 

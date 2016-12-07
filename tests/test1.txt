@@ -3,3 +3,11 @@ X:=3+4;
 ?y := 7 = := X : (X - 4);
 Z := ((3 + 4 - 6);
 Resultat := : X y %
+while
+if
+else
+WHILE
+IF
+ELSE
+write
+read
