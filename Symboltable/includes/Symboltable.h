@@ -8,7 +8,7 @@ class Symboltable {
 	public:
 		Symboltable();
 		virtual ~Symboltable();
-		Information* insert(char* lexem);
+		SymtabEntry* insert(char* lexem);
 		Information* lookup(unsigned int key);
 
 	private:

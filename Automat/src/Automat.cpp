@@ -4,6 +4,8 @@
  */
 
 #include "../includes/Automat.h"
+#include <iostream>
+
 
 Automat::Automat() {
 	reset();

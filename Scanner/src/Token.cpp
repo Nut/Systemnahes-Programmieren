@@ -7,11 +7,11 @@
 
 #include "../includes/Token.h"
 
-Token::Token(Token::TType type, int line, int column, Information* info, unsigned long value, char symbol) {
+Token::Token(Token::TType type, int line, int column, SymtabEntry* symtabentry, unsigned long value, char symbol) {
 	this->type = type;
 	this->line = line;
 	this->column = column;
-	this->info = info;
+	this->symtabentry = symtabentry;
 	this->value = value;
 	this->symbol = symbol;
 }
@@ -32,8 +32,8 @@ unsigned long Token::getValue() {
 	return this->value;
 }
 
-Information* Token::getInfo() {
-	return this->info;
+SymtabEntry* Token::getSymtabEntry() {
+	return this->symtabentry;
 }
 
 char Token::getSymbol() {

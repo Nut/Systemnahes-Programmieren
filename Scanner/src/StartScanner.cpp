@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	while ((t = scanner->nextToken())) {
 		switch (t->getType()) {
 			case Token::Identifier:
-				output << "Token " << t->typeToString() << "\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << t->getInfo()->getName() << endl;
+				output << "Token " << t->typeToString() << "\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << t->getSymtabEntry()->getInfo()->getName() << endl;
 				break;
 			case Token::Integer:
 				output << "Token " << t->typeToString() << "\t\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tValue: " << t->getValue()<< endl;

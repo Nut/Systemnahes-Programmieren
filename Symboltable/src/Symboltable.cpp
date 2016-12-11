@@ -28,7 +28,7 @@ Symboltable::~Symboltable() {
 	delete[] table;
 }
 
-Information* Symboltable::insert(char* lexem) {
+SymtabEntry* Symboltable::insert(char* lexem) {
 	unsigned int hashValue = hash(lexem);
 	SymtabEntry* tmpSymtabEntry = table[hashValue % TABLE_SIZE];
 
@@ -38,7 +38,7 @@ Information* Symboltable::insert(char* lexem) {
 	} else {
 		while (tmpSymtabEntry != NULL) {
 			if (tmpSymtabEntry->getInfo()->compareLex(lexem)) {
-				return table[hashValue % TABLE_SIZE]->getInfo(); /* pointer zurück geben */
+				return table[hashValue % TABLE_SIZE]; /* pointer zurück geben */
 			}
 			tmpSymtabEntry = tmpSymtabEntry->getNext();
 		}
@@ -53,7 +53,7 @@ Information* Symboltable::insert(char* lexem) {
 		tmpSymtabEntry->setNext(newEntry);
 	}
 
-	return table[hashValue % TABLE_SIZE]->getInfo(); /* pointer zurück geben */
+	return table[hashValue % TABLE_SIZE]; /* pointer zurück geben */
 }
 
 Information* Symboltable::lookup(unsigned int key) {
