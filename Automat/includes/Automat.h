@@ -8,6 +8,9 @@
 #ifndef Automat_H_
 #define Automat_H_
 
+#define DEFAULT_ARRAY_SIZE          20000
+#define NEW_SIZE                    20100
+
 class Automat {
 public:
 	enum State {
@@ -47,8 +50,8 @@ private:
 	int back;
 	bool stop;
 	char* lexem;
-	int sizeLexem;
-	int indexLexem;
+	unsigned int sizeLexem;
+	unsigned int indexLexem;
 	unsigned int line;
 	unsigned int column;
 	bool isSign(char c);

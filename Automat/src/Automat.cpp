@@ -5,6 +5,10 @@
 
 #include "../includes/Automat.h"
 #include <iostream>
+#include <stdlib.h>
+#include <cstring>
+
+using namespace std;
 
 
 Automat::Automat() {
@@ -55,7 +59,7 @@ void Automat::clearLexem() {
 	this->sizeLexem = 128;
 	delete[] lexem;
     this->lexem = new char[sizeLexem];
-    for (int i = 0; i <= sizeLexem; ++i) {
+    for (unsigned int i = 0; i <= sizeLexem; ++i) {
     	lexem[i] = '\0';
 	}
 }
