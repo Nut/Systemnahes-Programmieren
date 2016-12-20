@@ -1,17 +1,20 @@
-#ifndef PARSETREE_H_
-#define PARSETREE_H_
+/*
+ * ParseTree.h
+ *
+ *  Created on: 20.12.2016
+ *      Author: Denis
+ */
 
-#include "Node.h"
+#ifndef PARSER_INCLUDES_PARSETREE_H_
+#define PARSER_INCLUDES_PARSETREE_H_
 
 class ParseTree {
-
 public:
 	ParseTree();
-	void addProg(Node* node);
-	Node getNodeProg();
+	virtual ~ParseTree();
+
 private:
-	Node nodeProg;
+
 };
 
-
-#endif /* PARSETREE_H_ */
+#endif /* PARSER_INCLUDES_PARSETREE_H_ */

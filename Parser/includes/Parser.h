@@ -3,6 +3,7 @@
 
 #include "../../Scanner/includes/Token.h"
 #include "../../Scanner/includes/Scanner.h"
+#include "ParseTree.h"
 
 class Parser {
 public:
@@ -12,8 +13,10 @@ public:
 
 private:
 	Scanner scanner;
+	ParseTree* tree;
 	void prog();
 	void decls();
+	void statements();
 };
 
 

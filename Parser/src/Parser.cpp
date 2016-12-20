@@ -7,6 +7,7 @@
 
 Parser::Parser(const char* filename) {
 	this->scanner = new Scanner(filename);
+	this->tree = new ParseTree();
 }
 
 Parser::~Parser() {
@@ -14,15 +15,20 @@ Parser::~Parser() {
 }
 
 ParseTree* Parser::parse() {
-	return new ParseTree();
+	prog();
+	return this->tree;
 }
 
 void Parser::prog() {
-	Node decls = new Node();
-	Node statements = new Node();
+	decls();
+	statements();
 }
 
 void Parser::decls() {
+
+}
+
+void Parser::statements() {
 
 }
 
