@@ -12,9 +12,10 @@ class ParseTree {
 public:
 	ParseTree();
 	virtual ~ParseTree();
-
+	void addProg(Node* node);
+	Node* getProg();
 private:
-
+	Node* prog;
 };
 
 #endif /* PARSER_INCLUDES_PARSETREE_H_ */

@@ -20,12 +20,55 @@ ParseTree* Parser::parse() {
 }
 
 void Parser::prog() {
-	decls();
-	statements();
+	Node* decls = decls();
+	Node* statements = statements();
+	Node* prog = new Node();
+	//prog->addNode(decls);
+	//prog->addNode(statements);
+	this->tree->addProg(prog);
 }
 
-void Parser::decls() {
+Node* Parser::decls() {
+	Token* token = this->scanner.nextToken();
+	Node* decls = new Node;
+	while(token != Token::Semicolon) {
+		token = this->scanner.nextToken();
+		switch (token) {
+			case Token::Int:
+				decls->addNode(decl());
+				break;
+			default:
+				break;
+		}
+	}
+	return decls;
+}
 
+Node* Parser::decl() {
+	Token* token;
+	Node* decl = new Node;
+	while(token != Token::Semicolon) {
+		token = this->scanner.nextToken();
+		switch (token) {
+			case Token::Int:
+				decl->addNode(decl());
+				break;
+			default:
+				break;
+		}
+	}
+	return decls;
+}
+
+void Parser::array() {
+	Token* token = this->scanner.nextToken();
+		switch (token) {
+			case Token::LeftBracket:
+
+				break;
+			default:
+				break;
+		}
 }
 
 void Parser::statements() {

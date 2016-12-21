@@ -15,8 +15,10 @@ private:
 	Scanner scanner;
 	ParseTree* tree;
 	void prog();
-	void decls();
-	void statements();
+	Node* decls();
+	Node* decl();
+	Node* statements();
+	Node* array();
 };
 
 
