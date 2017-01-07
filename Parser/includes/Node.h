@@ -13,6 +13,7 @@ class Node {
 public:
 	Node();
 	virtual ~Node();
+	void addNode(Node* node);
 };
 
 

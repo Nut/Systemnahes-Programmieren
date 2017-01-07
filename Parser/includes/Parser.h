@@ -14,11 +14,11 @@ public:
 private:
 	Scanner scanner;
 	ParseTree* tree;
-	void prog();
+	Node* prog();
 	Node* decls();
 	Node* decl();
-	Node* statements();
 	Node* array();
+	Node* statements();
 };
 
 
