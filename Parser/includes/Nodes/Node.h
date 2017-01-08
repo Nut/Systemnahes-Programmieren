@@ -11,9 +11,8 @@
 
 class Node {
 public:
-	Node();
 	virtual ~Node();
-	void addNode(Node* node);
+	virtual void addNode(Node* node);
 };
 
 

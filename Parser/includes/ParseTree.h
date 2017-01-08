@@ -8,6 +8,8 @@
 #ifndef PARSER_INCLUDES_PARSETREE_H_
 #define PARSER_INCLUDES_PARSETREE_H_
 
+#include "Nodes/Node.h"
+
 class ParseTree {
 public:
 	ParseTree();

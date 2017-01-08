@@ -5,8 +5,11 @@
  *      Author: Denis
  */
 
-Parser::Parser(const char* filename) {
-	this->scanner = new Scanner(filename);
+#include "../includes/Parser.h"
+
+Parser::Parser(char* filename) {
+	Symboltable* symtab = new Symboltable; //
+	this->scanner = new Scanner(filename, symtab);
 	this->tree = new ParseTree();
 }
 
@@ -19,58 +22,59 @@ ParseTree* Parser::parse() {
 	return this->tree;
 }
 
-Node* Parser::prog() {
-	Node* prog = new Node();
+NodeProg* Parser::prog() {
+	NodeProg* prog = new NodeProg();
 	prog->addNode(decls());
 	prog->addNode(statements());
 	return prog;
 }
 
-Node* Parser::decls() {
-	Token* token = this->scanner.nextToken();
-	Node* declarations = new Node();
+NodeDecls* Parser::decls() {
+	Token* token = this->scanner->nextToken();
+	NodeDecls* declarations = new NodeDecls();
 	if (token->getType() == Token::Int) {
 		declarations->addNode(decl());
-		Token* token = this->scanner.nextToken();
+		Token* token = this->scanner->nextToken();
 		if (token->getType() == Token::Semicolon) {
 			declarations->addNode(decls());
 		}
 	}
-	return decls;
+	return declarations;
 }
 
-Node* Parser::decl() {
-	Token* token = this->scanner.nextToken();
-	Node* decl = new Node();
+NodeDecl* Parser::decl() {
+	Token* token = this->scanner->nextToken();
+	NodeDecl* decl = new NodeDecl();
 	decl->addNode(array());
 	if (token->getType() == Token::Identifier) {
-		decl->addNode(new Node());
+		decl->addNode(new Node()); //add identifier (as leaf?)
+		//next Token?
 	} else {
 		//return error
 	}
 	return decl;
 }
 
-Node* Parser::array() {
-	Token* token = this->scanner.nextToken();
-	Node* array = new Node();
+NodeArray* Parser::array() {
+	Token* token = this->scanner->nextToken();
+	NodeArray* array = new NodeArray();
 	if (token->getType() == Token::LeftBracket) {
-		token = this->scanner.nextToken();
+		token = this->scanner->nextToken();
 		if (token->getType() == Token::Integer) {
-			array->addNode(new Node());
+			array->addNode(new Node()); //add integer (as leaf?)
 		} else {
 			//return Error
 		}
-		Token* token = this->scanner.nextToken();
-		if (token != Token::RightBracket) {
+		Token* token = this->scanner->nextToken();
+		if (token->getType() != Token::RightBracket) {
 			//return Error
 		}
 	}
 	return array;
 }
 
-Node* Parser::statements() {
-	Node* statements = new Node();
+NodeStatements* Parser::statements() {
+	NodeStatements* statements = new NodeStatements();
 	return statements;
 }
 
