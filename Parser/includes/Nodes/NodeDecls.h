@@ -10,22 +10,22 @@
 
 #include "NodeDecl.h"
 
-class NodeDecls: public Node {
+class NodeDecls {
 private:
 	NodeDecl* decl;
 	NodeDecls* decls;
 
 public:
-	virtual ~NodeDecls() {
+	~NodeDecls() {
 		delete this->decl;
 		delete this->decls;
 	}
 
-	virtual void addNode(NodeDecl* decl) {
+	void addNode(NodeDecl* decl) {
 		this->decl = decl;
 	}
 
-	virtual void addNode(NodeDecls* decls) {
+	void addNode(NodeDecls* decls) {
 		this->decls = decls;
 	}
 };

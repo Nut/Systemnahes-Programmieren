@@ -9,20 +9,20 @@
 #define PARSER_INCLUDES_NODES_NODEDECL_H_
 
 #include "NodeArray.h"
+#include "NodeIdentifier.h"
 
-class NodeDecl: public Node {
+class NodeDecl {
 private:
 	NodeArray* array;
-	//missing identifier
+	NodeIdentifier* identifier;
 
 public:
-	virtual ~NodeDecl() {
-		delete this->array;
+	void addNode(NodeArray* array) {
+		this->array = array;
 	}
 
-	using Node::addNode;
-	virtual void addNode(NodeArray* array) {
-		this->array = array;
+	void addNode(NodeIdentifier* identifier) {
+		this->identifier = identifier;
 	}
 };
 

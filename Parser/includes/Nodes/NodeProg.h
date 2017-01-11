@@ -11,22 +11,22 @@
 #include "NodeDecls.h"
 #include "NodeStatements.h"
 
-class NodeProg: public Node {
+class NodeProg {
 private:
 	NodeDecls* decls;
 	NodeStatements* statements;
 
 public:
-	virtual ~NodeProg() {
+	~NodeProg() {
 		delete this->decls;
 		delete this->statements;
 	}
 
-	virtual void addNode(NodeDecls* decls) {
+	void addNode(NodeDecls* decls) {
 		this->decls = decls;
 	}
 
-	virtual void addNode(NodeStatements* statements) {
+	void addNode(NodeStatements* statements) {
 		this->statements = statements;
 	}
 };

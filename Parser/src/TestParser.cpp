@@ -11,8 +11,9 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-	Parser* parser = new Parser("filename");
-	cout << "test" << endl;
+	cout << "parsing..." << endl;
+	Parser* parser = new Parser(argv[1]);
+	parser->parse();
 }
 
 

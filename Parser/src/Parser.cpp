@@ -6,6 +6,7 @@
  */
 
 #include "../includes/Parser.h"
+#include <iostream>
 
 Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable; //
@@ -30,12 +31,12 @@ NodeProg* Parser::prog() {
 }
 
 NodeDecls* Parser::decls() {
-	Token* token = this->scanner->nextToken();
+	currentToken = this->scanner->nextToken();
 	NodeDecls* declarations = new NodeDecls();
-	if (token->getType() == Token::Int) {
+	if (currentToken->getType() == Token::Int) {
 		declarations->addNode(decl());
-		Token* token = this->scanner->nextToken();
-		if (token->getType() == Token::Semicolon) {
+		currentToken = this->scanner->nextToken();
+		if (currentToken->getType() == Token::Semicolon) {
 			declarations->addNode(decls());
 		}
 	}
@@ -43,14 +44,16 @@ NodeDecls* Parser::decls() {
 }
 
 NodeDecl* Parser::decl() {
-	Token* token = this->scanner->nextToken();
+	currentToken = this->scanner->nextToken();
 	NodeDecl* decl = new NodeDecl();
 	decl->addNode(array());
-	if (token->getType() == Token::Identifier) {
-		decl->addNode(new Node()); //add identifier (as leaf?)
-		//next Token?
+	if (currentToken->getType() == Token::Identifier) {
+		NodeIdentifier* identifier = new NodeIdentifier();
+		identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
+		decl->addNode(identifier);
 	} else {
-		//return error
+		cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
+		throw "stop";
 	}
 	return decl;
 }
@@ -61,13 +64,15 @@ NodeArray* Parser::array() {
 	if (token->getType() == Token::LeftBracket) {
 		token = this->scanner->nextToken();
 		if (token->getType() == Token::Integer) {
-			array->addNode(new Node()); //add integer (as leaf?)
+			array->addInteger(token->getValue());
 		} else {
-			//return Error
+			cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
+			throw "stop";
 		}
 		Token* token = this->scanner->nextToken();
 		if (token->getType() != Token::RightBracket) {
-			//return Error
+			cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
+			throw "stop";
 		}
 	}
 	return array;

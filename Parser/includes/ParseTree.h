@@ -8,16 +8,16 @@
 #ifndef PARSER_INCLUDES_PARSETREE_H_
 #define PARSER_INCLUDES_PARSETREE_H_
 
-#include "Nodes/Node.h"
+#include "Nodes/NodeProg.h"
 
 class ParseTree {
 public:
 	ParseTree();
 	virtual ~ParseTree();
-	void addProg(Node* node);
-	Node* getProg();
+	void addProg(NodeProg* node);
+	NodeProg* getProg();
 private:
-	Node* prog;
+	NodeProg* prog;
 };
 
 #endif /* PARSER_INCLUDES_PARSETREE_H_ */

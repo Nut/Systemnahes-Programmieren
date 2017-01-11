@@ -7,6 +7,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cstring>
+#include <cstdlib>
+#include <algorithm>
 
 using namespace std;
 
@@ -68,13 +70,24 @@ void Automat::addCharToLexem(char c) {
 	if (indexLexem < sizeLexem) {
 		lexem[indexLexem++] = c;
 	} else {
-		sizeLexem++;
+		/*sizeLexem++;
 		char* tmp = this->lexem;
 		this->lexem = new char[sizeLexem];
 		lexem[sizeLexem] = '\0';
 		for (int i = 0; i < sizeLexem - 1 ; i++) {
 			this->lexem[i] = tmp[i];
 		}
+		delete[] tmp;
+		lexem[indexLexem++] = c;*/
+
+		char *newArray = new char[sizeLexem + 10];
+		fill_n(newArray, sizeLexem + 10, '\0');
+		memcpy(newArray, this->lexem, this->sizeLexem);
+
+		delete [] this->lexem;
+
+		this->lexem = newArray;
+		this->sizeLexem += 10;
 		lexem[indexLexem++] = c;
 	}
 }

@@ -67,6 +67,8 @@ Token* Scanner::createToken() {
 				return new Token(Token::Write, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
 			} else if (stringCompare(automat->getLexem(), "read") == 0){
 				return new Token(Token::Read, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
+			} else if (stringCompare(automat->getLexem(), "int") == 0){
+				return new Token(Token::Int, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
 			} else {
 				return new Token(Token::Identifier, automat->getLine(), automat->getColumn(), symboltable->insert(automat->getLexem()), NULL, NULL);
 			}

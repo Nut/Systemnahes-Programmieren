@@ -8,16 +8,11 @@
 #ifndef PARSER_INCLUDES_NODES_NODEARRAY_H_
 #define PARSER_INCLUDES_NODES_NODEARRAY_H_
 
-class NodeArray {
+class NodeStatement {
 private:
-	unsigned long integer;
+
 public:
-	void addInteger(unsigned long integer) {
-		this->integer = integer;
-	}
-	unsigned long getInteger() {
-		return this->integer;
-	}
+
 };
 
 
