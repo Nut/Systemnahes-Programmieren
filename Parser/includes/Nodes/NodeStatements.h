@@ -8,21 +8,22 @@
 #ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
 #define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
 
+
 class NodeStatements {
 private:
-	//NodeStatement* statement;
+	NodeStatement* statement;
 	NodeStatements* statements;
 
 public:
 
 	~NodeStatements() {
-		//delete this->statement;
+		delete this->statement;
 		delete this->statements;
 	}
 
-	/*virtual void addNode(NodeStatement* statement) {
+	void addNode(NodeStatement* statement) {
 		this->statement = statement;
-	}*/
+	}
 
 	void addNode(NodeStatements* statements) {
 		this->statements = statements;

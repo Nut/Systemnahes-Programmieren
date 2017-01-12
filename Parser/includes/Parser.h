@@ -26,6 +26,7 @@ private:
 	NodeDecl* decl();
 	NodeArray* array();
 	NodeStatements* statements();
+	NodeStatement* statement();
 };
 
 

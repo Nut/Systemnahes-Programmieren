@@ -80,7 +80,27 @@ NodeArray* Parser::array() {
 
 NodeStatements* Parser::statements() {
 	NodeStatements* statements = new NodeStatements();
+
+	switch (currentToken->getType()) {
+		case Token::Identifier:
+		case Token::Write:
+		case Token::Read:
+		case Token::LeftParent:
+		case Token::If:
+		case Token::While:
+			statements->addNode(statement());
+			currentToken = this->scanner->nextToken();
+			if (currentToken->getType() == Token::Semicolon) {
+				//statements->addNode(statements());
+			}
+			break;
+
+		default:
+			break;
+	}
 	return statements;
 }
 
+NodeStatement* Parser::statement() {
 
+}

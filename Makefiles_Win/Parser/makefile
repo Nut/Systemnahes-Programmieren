@@ -19,12 +19,14 @@ BUFFERDIR = ../Buffer
 
 SYMBOLTABLEDIR = ../Symboltable
 
+SCANNERDIR = ../Scanner
+
 
 ## hier alle Object Files eintragen, ausser das File mit der Mainmethode
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
-OBJS = $(OBJDIR)/Scanner.o \
-	   $(OBJDIR)/Token.o
+OBJS = $(OBJDIR)/Parser.o \
+	   $(OBJDIR)/ParseTree.o
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
@@ -50,7 +52,7 @@ OBJS = $(OBJDIR)/Scanner.o \
 	
 	
 # Variante mit guten Makefile-Kenntnissen
-makeStartScanner: $(OBJS) ScannerStart
+makeTestParser: $(OBJS) TestParser
 
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp $(HEADERDIR)/%.h
@@ -62,15 +64,16 @@ $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp $(HEADERDIR)/%.h
 # $< erste abhaengigkeit
 
 
-ScannerStart: $(SRCDIR)/StartScanner.cpp $(HEADERDIR)/Scanner.h
-	g++ -g  -c -Wall src/StartScanner.cpp -o $(BINDIRTEST)/StartScanner.o  
-	g++ -g $(BINDIRTEST)/StartScanner.o $(OBJDIR)/*.o $(AUTOMATDIR)/$(OBJDIR)/*.o $(BUFFERDIR)/$(OBJDIR)/*.o $(SYMBOLTABLEDIR)/$(OBJDIR)/*.o -o $(BINDIRTEST)/ScannerStart
+TestParser: $(SRCDIR)/TestParser.cpp $(HEADERDIR)/Parser.h
+	g++ -g  -c -Wall src/TestParser.cpp -o $(BINDIRTEST)/TestParser.o  
+	g++ -g $(BINDIRTEST)/TestParser.o $(OBJDIR)/*.o $(AUTOMATDIR)/$(OBJDIR)/*.o $(BUFFERDIR)/$(OBJDIR)/*.o $(SYMBOLTABLEDIR)/$(OBJDIR)/*.o $(SCANNERDIR)/$(OBJDIR)/*.o -o $(BINDIRTEST)/TestParser
 
 # loeschen aller files im verzeichnis $(OBJDIR) und $(BINDIRTEST) und neu erstellen
 
-cleanScanner:
+cleanParser:
 	del /Q $(OBJDIR)\*.o
 	del /Q $(BINDIRTEST)\*
-	$(MAKE) makeStartScanner
+	$(MAKE) makeTestParser
+	
 
 
