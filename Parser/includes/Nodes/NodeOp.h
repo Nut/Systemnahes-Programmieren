@@ -1,5 +1,5 @@
 /*
- * NodeStatements.h
+ * NodeOp.h
  *
  *  Created on: 08.01.2017
  *      Author: yannick
@@ -10,14 +10,17 @@
 
 class NodeOp: public Node {
 private:
-
+	Token* token;
 public:
+	NodeOp (Token* token) {
+		this->token = token;
+	}
 
 	~NodeOp() {
 
 	}
 
-	void addNode() {
+	void addToken() {
 
 	}
 };

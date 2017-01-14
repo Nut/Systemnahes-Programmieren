@@ -1,32 +1,30 @@
 /*
- * NodeStatements.h
+ * NodeExp2Identifier.h
  *
  *  Created on: 08.01.2017
  *      Author: yannick
  */
 
-#ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
-#define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
+#ifndef PARSER_INCLUDES_NODES_NODEEXP2IDENTIFIER_H_
+#define PARSER_INCLUDES_NODES_NODEEXP2IDENTIFIER_H_
 
-class NodeStatements {
+class NodeExp2Identifier: public NodeExp2 {
 private:
-	//NodeStatement* statement;
-	NodeStatements* statements;
+	NodeIdentifier* identifier;
+	NodeIndex* index;
 
 public:
-
-	~NodeStatements() {
-		//delete this->statement;
-		delete this->statements;
+	~NodeExp2Identifier() {
+		delete this->identifier;
 	}
 
-	/*virtual void addNode(NodeStatement* statement) {
-		this->statement = statement;
-	}*/
+	void addNode(NodeIdentifier* identifier) {
+		this->identifier = identifier;
+	}
 
-	void addNode(NodeStatements* statements) {
-		this->statements = statements;
+	void addNode(NodeIndex* index) {
+		this->index = index;
 	}
 };
 
-#endif /* PARSER_INCLUDES_NODES_NODESTATEMENTS_H_ */
+#endif /* PARSER_INCLUDES_NODES_NODEEXP2IDENTIFIER_H_ */

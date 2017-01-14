@@ -8,14 +8,18 @@
 #ifndef PARSER_INCLUDES_NODES_NODEARRAY_H_
 #define PARSER_INCLUDES_NODES_NODEARRAY_H_
 
+#include "NodeInteger.h"
+
 class NodeArray: public Node {
 private:
-	unsigned long integer;
+	NodeInteger* integer;
+
 public:
-	void addInteger(unsigned long integer) {
+	void addInteger(NodeInteger* integer) {
 		this->integer = integer;
 	}
-	unsigned long getInteger() {
+
+	NodeInteger* getInteger() {
 		return this->integer;
 	}
 };

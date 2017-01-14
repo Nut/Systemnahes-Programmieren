@@ -1,32 +1,27 @@
 /*
- * NodeStatements.h
+ * NodeExp2Integer.h
  *
  *  Created on: 08.01.2017
  *      Author: yannick
  */
 
-#ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
-#define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
+#ifndef PARSER_INCLUDES_NODES_NODEEXP2INTEGER_H_
+#define PARSER_INCLUDES_NODES_NODEEXP2INTEGER_H_
 
-class NodeStatements {
+#include "NodeInteger.h"
+
+class NodeExp2Integer: public NodeExp2 {
 private:
-	//NodeStatement* statement;
-	NodeStatements* statements;
+	NodeInteger* integer;
 
 public:
-
-	~NodeStatements() {
-		//delete this->statement;
-		delete this->statements;
+	~NodeExp2Integer() {
+		delete this->integer;
 	}
 
-	/*virtual void addNode(NodeStatement* statement) {
-		this->statement = statement;
-	}*/
-
-	void addNode(NodeStatements* statements) {
-		this->statements = statements;
+	void addNode(NodeInteger* integer) {
+		this->integer = integer;
 	}
 };
 
-#endif /* PARSER_INCLUDES_NODES_NODESTATEMENTS_H_ */
+#endif /* PARSER_INCLUDES_NODES_NODEEXP2INTEGER_H_ */

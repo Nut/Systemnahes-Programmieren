@@ -1,19 +1,33 @@
 /*
- * NodeArray.h
+ * NodeStatementRead.h
  *
  *  Created on: 08.01.2017
  *      Author: yannick
  */
 
-#ifndef PARSER_INCLUDES_NODES_NODEARRAY_H_
-#define PARSER_INCLUDES_NODES_NODEARRAY_H_
+#ifndef PARSER_INCLUDES_NODES_NODESTATEMENTREAD_H_
+#define PARSER_INCLUDES_NODES_NODESTATEMENTREAD_H_
 
-class NodeStatement {
+class NodeStatementRead: public NodeStatement {
 private:
+	NodeIdentifier* identifier;
+	NodeIndex* index;
 
 public:
+	~NodeStatementRead() {
+		delete this->identifier;
+		delete this->index;
+	}
+
+	void addNode(NodeIdentifier* identifier) {
+		this->identifier = identifier;
+	}
+
+	void addNode(NodeIndex* index) {
+		this->index = index;
+	}
 
 };
 
 
-#endif /* PARSER_INCLUDES_NODES_NODEARRAY_H_ */
+#endif /* PARSER_INCLUDES_NODES_NODESTATEMENTREAD_H_ */

@@ -1,32 +1,25 @@
 /*
- * NodeStatements.h
+ * NodeExp2Bracket.h
  *
  *  Created on: 08.01.2017
  *      Author: yannick
  */
 
-#ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
-#define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
+#ifndef PARSER_INCLUDES_NODES_NODEEXP2BRACKET_H_
+#define PARSER_INCLUDES_NODES_NODEEXP2BRACKET_H_
 
-class NodeStatements {
+class NodeExp2Bracket: public NodeExp2 {
 private:
-	//NodeStatement* statement;
-	NodeStatements* statements;
+	NodeExp* exp;
 
 public:
-
-	~NodeStatements() {
-		//delete this->statement;
-		delete this->statements;
+	~NodeExp2Bracket() {
+		delete this->exp;
 	}
 
-	/*virtual void addNode(NodeStatement* statement) {
-		this->statement = statement;
-	}*/
-
-	void addNode(NodeStatements* statements) {
-		this->statements = statements;
+	void addNode(NodeExp* exp) {
+		this->exp = exp;
 	}
 };
 
-#endif /* PARSER_INCLUDES_NODES_NODESTATEMENTS_H_ */
+#endif /* PARSER_INCLUDES_NODES_NODEEXP2BRACKET_H_ */

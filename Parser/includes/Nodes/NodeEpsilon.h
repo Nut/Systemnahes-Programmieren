@@ -10,7 +10,7 @@
 
 //#include "NodeIndex.h"
 
-class NodeEpsilon: public NodeDecls, public NodeArray, public NodeStatements, public NodeIndex {
+class NodeEpsilon: public NodeDecls, public NodeArray, public NodeStatements, public NodeIndex, public NodeOpExp {
 public:
 	virtual ~NodeEpsilon () {}
 };
