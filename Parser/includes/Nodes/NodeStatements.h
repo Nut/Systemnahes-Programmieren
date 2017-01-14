@@ -8,8 +8,9 @@
 #ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
 #define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
 
+#include "NodeStatement.h"
 
-class NodeStatements {
+class NodeStatements: public Node {
 private:
 	NodeStatement* statement;
 	NodeStatements* statements;
@@ -26,7 +27,7 @@ public:
 	}
 
 	void addNode(NodeStatements* statements) {
-		this->statements = statements;
+			this->statements = statements;
 	}
 };
 

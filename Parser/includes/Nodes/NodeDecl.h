@@ -8,10 +8,11 @@
 #ifndef PARSER_INCLUDES_NODES_NODEDECL_H_
 #define PARSER_INCLUDES_NODES_NODEDECL_H_
 
+#include "Node.h"
 #include "NodeArray.h"
 #include "NodeIdentifier.h"
 
-class NodeDecl {
+class NodeDecl: public Node {
 private:
 	NodeArray* array;
 	NodeIdentifier* identifier;

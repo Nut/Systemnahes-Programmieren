@@ -11,7 +11,7 @@
 #include "NodeDecls.h"
 #include "NodeStatements.h"
 
-class NodeProg {
+class NodeProg: public Node {
 private:
 	NodeDecls* decls;
 	NodeStatements* statements;

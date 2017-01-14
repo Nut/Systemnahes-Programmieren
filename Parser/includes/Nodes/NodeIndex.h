@@ -5,28 +5,24 @@
  *      Author: yannick
  */
 
-#ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
-#define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
+#ifndef PARSER_INCLUDES_NODES_NODEINDEX_H_
+#define PARSER_INCLUDES_NODES_NODEINDEX_H_
 
-class NodeStatements {
+#include "NodeExp.h"
+
+class NodeIndex: public Node {
 private:
-	//NodeStatement* statement;
-	NodeStatements* statements;
+	NodeExp* exp;
 
 public:
 
-	~NodeStatements() {
-		//delete this->statement;
-		delete this->statements;
+	~NodeIndex() {
+		delete exp;
 	}
 
-	/*virtual void addNode(NodeStatement* statement) {
-		this->statement = statement;
-	}*/
-
-	void addNode(NodeStatements* statements) {
-		this->statements = statements;
+	void addNode(NodeExp* exp) {
+		this->exp = exp;
 	}
 };
 
-#endif /* PARSER_INCLUDES_NODES_NODESTATEMENTS_H_ */
+#endif /* PARSER_INCLUDES_NODES_NODEINDEX_H_ */

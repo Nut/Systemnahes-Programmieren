@@ -6,6 +6,8 @@
 Buffer/debug/BufferTest
 Symboltable/debug/SymboltableTest
 Scanner/debug/ScannerTest
+Scanner/debug/ScannerStart
 Automat/debug/AutomatTest
+Parser/debug/TestParser
 
 tests/out.txt

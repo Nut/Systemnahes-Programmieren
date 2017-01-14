@@ -9,8 +9,9 @@
 #define PARSER_INCLUDES_NODES_NODEDECLS_H_
 
 #include "NodeDecl.h"
+#include "Node.h"
 
-class NodeDecls {
+class NodeDecls: public Node {
 private:
 	NodeDecl* decl;
 	NodeDecls* decls;

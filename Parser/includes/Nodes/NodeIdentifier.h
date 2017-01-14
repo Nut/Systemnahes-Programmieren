@@ -10,7 +10,7 @@
 
 #include "../../../Symboltable/includes/Information.h"
 
-class NodeIdentifier {
+class NodeIdentifier: public Node {
 private:
 	Information* information;
 public:

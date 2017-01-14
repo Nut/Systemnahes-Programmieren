@@ -5,28 +5,21 @@
  *      Author: yannick
  */
 
-#ifndef PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
-#define PARSER_INCLUDES_NODES_NODESTATEMENTS_H_
+#ifndef PARSER_INCLUDES_NODES_NODEOP_H_
+#define PARSER_INCLUDES_NODES_NODEOP_H_
 
-class NodeStatements {
+class NodeOp: public Node {
 private:
-	//NodeStatement* statement;
-	NodeStatements* statements;
 
 public:
 
-	~NodeStatements() {
-		//delete this->statement;
-		delete this->statements;
+	~NodeOp() {
+
 	}
 
-	/*virtual void addNode(NodeStatement* statement) {
-		this->statement = statement;
-	}*/
+	void addNode() {
 
-	void addNode(NodeStatements* statements) {
-		this->statements = statements;
 	}
 };
 
-#endif /* PARSER_INCLUDES_NODES_NODESTATEMENTS_H_ */
+#endif /* PARSER_INCLUDES_NODES_NODEOP_H_ */
