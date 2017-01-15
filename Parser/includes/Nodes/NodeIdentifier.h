@@ -17,6 +17,14 @@ public:
 	void addInformation(Information* information) {
 		this->information = information;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	Information* getInformation() {
+		return this->information;
+	}
 };
 
 

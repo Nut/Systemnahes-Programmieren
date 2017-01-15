@@ -22,6 +22,10 @@ public:
 	NodeInteger* getInteger() {
 		return this->integer;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
 };
 
 

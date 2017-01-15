@@ -8,6 +8,8 @@
 #ifndef PARSER_INCLUDES_NODES_NODEOP_H_
 #define PARSER_INCLUDES_NODES_NODEOP_H_
 
+#include "../../../Scanner/includes/Token.h"
+
 class NodeOp: public Node {
 private:
 	Token* token;
@@ -21,7 +23,15 @@ public:
 	}
 
 	void addToken() {
+		//TODO
+	}
 
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	Token* getToken() {
+		return this->token;
 	}
 };
 

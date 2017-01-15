@@ -22,6 +22,14 @@ public:
 	void addNode(NodeInteger* integer) {
 		this->integer = integer;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeInteger* getInteger() {
+		return this->integer;
+	}
 };
 
 #endif /* PARSER_INCLUDES_NODES_NODEEXP2INTEGER_H_ */

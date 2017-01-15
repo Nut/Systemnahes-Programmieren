@@ -21,6 +21,13 @@ public:
 		this->exp = exp;
 	}
 
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeExp* getExp() {
+		return this->exp;
+	}
 };
 
 

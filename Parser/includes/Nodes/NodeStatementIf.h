@@ -33,6 +33,21 @@ public:
 		this->statementElse = statementElse;
 	}
 
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeExp* getExp() {
+		return this->exp;
+	}
+
+	NodeStatement* getStatementIf() {
+		return this->statementIf;
+	}
+
+	NodeStatement* getStatementElse() {
+		return this->statementElse;
+	}
 };
 
 

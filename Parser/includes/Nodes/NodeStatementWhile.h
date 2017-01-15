@@ -27,6 +27,17 @@ public:
 		this->statement = statement;
 	}
 
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeExp* getExp() {
+		return this->exp;
+	}
+
+	NodeStatement* getStatement() {
+		return this->statement;
+	}
 };
 
 

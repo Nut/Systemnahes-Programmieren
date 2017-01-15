@@ -25,6 +25,18 @@ public:
 	void addNode(NodeIndex* index) {
 		this->index = index;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeIdentifier* getIdentifier() {
+		return this->identifier;
+	}
+
+	NodeIndex* getIndex() {
+		return this->index;
+	}
 };
 
 #endif /* PARSER_INCLUDES_NODES_NODEEXP2IDENTIFIER_H_ */

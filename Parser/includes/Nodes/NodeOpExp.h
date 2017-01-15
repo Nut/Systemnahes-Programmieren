@@ -30,6 +30,18 @@ public:
 	void addNode(NodeExp* exp) {
 		this->exp = exp;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeOp* getOp() {
+		return this->op;
+	}
+
+	NodeExp* getExp() {
+		return this->exp;
+	}
 };
 
 #endif /* PARSER_INCLUDES_NODES_NODEOPEXP_H_ */

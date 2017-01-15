@@ -21,6 +21,13 @@ public:
 		this->statements = statements;
 	}
 
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeStatements* getStatements() {
+		return this->statements;
+	}
 };
 
 

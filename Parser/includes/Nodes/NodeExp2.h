@@ -14,6 +14,10 @@ public:
 	~NodeExp2() {
 
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
 };
 
 

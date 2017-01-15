@@ -22,6 +22,14 @@ public:
 	void addInteger(long int value) {
 		this->value = value;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	long int getValue() {
+		return this->value;
+	}
 };
 
 

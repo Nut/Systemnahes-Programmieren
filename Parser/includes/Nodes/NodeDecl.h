@@ -8,7 +8,7 @@
 #ifndef PARSER_INCLUDES_NODES_NODEDECL_H_
 #define PARSER_INCLUDES_NODES_NODEDECL_H_
 
-#include "Node.h"
+#include "../Node.h"
 #include "NodeArray.h"
 #include "NodeIdentifier.h"
 
@@ -24,6 +24,18 @@ public:
 
 	void addNode(NodeIdentifier* identifier) {
 		this->identifier = identifier;
+	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeArray* getArray() {
+		return this->array;
+	}
+
+	NodeIdentifier* getIdentifier() {
+		return this->identifier;
 	}
 };
 

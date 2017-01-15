@@ -9,7 +9,7 @@
 #define PARSER_INCLUDES_NODES_NODEDECLS_H_
 
 #include "NodeDecl.h"
-#include "Node.h"
+#include "../Node.h"
 
 class NodeDecls: public Node {
 private:
@@ -28,6 +28,18 @@ public:
 
 	void addNode(NodeDecls* decls) {
 		this->decls = decls;
+	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeDecl* getDecl() {
+		return this->decl;
+	}
+
+	NodeDecls* getDecls() {
+		return this->decls;
 	}
 };
 

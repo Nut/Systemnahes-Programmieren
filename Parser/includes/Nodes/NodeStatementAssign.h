@@ -29,6 +29,22 @@ public:
 	void addNode(NodeExp* exp) {
 		this->exp = exp;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeIdentifier* getIdentifier() {
+		return this->identifier;
+	}
+
+	NodeIndex* getIndex() {
+		return this->index;
+	}
+
+	NodeExp* getExp() {
+		return this->exp;
+	}
 };
 
 

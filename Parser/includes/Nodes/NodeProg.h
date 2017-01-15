@@ -10,6 +10,7 @@
 
 #include "NodeDecls.h"
 #include "NodeStatements.h"
+#include "../ParseTreeVisitor.h"
 
 class NodeProg: public Node {
 private:
@@ -29,6 +30,19 @@ public:
 	void addNode(NodeStatements* statements) {
 		this->statements = statements;
 	}
+
+	NodeDecls* getDecls() {
+		return this->decls;
+	}
+
+	NodeStatements* getStatements() {
+		return this->statements;
+	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
 };
 
 

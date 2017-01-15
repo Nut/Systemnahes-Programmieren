@@ -27,6 +27,17 @@ public:
 		this->index = index;
 	}
 
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeIdentifier* getIdentifier() {
+		return this->identifier;
+	}
+
+	NodeIndex* getIndex() {
+		return this->index;
+	}
 };
 
 

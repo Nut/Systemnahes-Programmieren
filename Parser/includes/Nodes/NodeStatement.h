@@ -10,7 +10,9 @@
 
 
 class NodeStatement: public Node {
-
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
 };
 
 

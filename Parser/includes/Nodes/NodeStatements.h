@@ -29,6 +29,18 @@ public:
 	void addNode(NodeStatements* statements) {
 			this->statements = statements;
 	}
+
+	void accept(ParseTreeVisitor* visitor) {
+		visitor->visitNode(this);
+	}
+
+	NodeStatement* getStatement() {
+		return this->statement;
+	}
+
+	NodeStatements* getStatements() {
+		return this->statements;
+	}
 };
 
 #endif /* PARSER_INCLUDES_NODES_NODESTATEMENTS_H_ */
