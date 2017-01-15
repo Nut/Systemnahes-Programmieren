@@ -29,12 +29,17 @@ bool Parser::checkToken(Token::TType type) {
 	if (this->currentToken->getType() != type) {
 		//std::cerr << "Error: unerwartetes Token " << myTok.toString() << ", " << TokenTypeStr[type] << " erwartet" << std::endl;
 		//exit(EXIT_FAILURE);
-		cerr << "error " << currentToken->getType() << endl;
+		cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
 		return false;
 	}
 
 	nextToken();
 	return true;
+}
+
+void Parser::error() {
+	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
+	exit(EXIT_FAILURE);
 }
 
 ParseTree* Parser::parse() {
@@ -151,6 +156,7 @@ NodeStatement* Parser::statement() {
 				statement->addNode(exp());
 			} else {
 				//error ???
+				error();
 			}
 			return statement;
 		}
@@ -208,6 +214,7 @@ NodeStatement* Parser::statement() {
 		}
 		default:
 			//error
+			error();
 			break;
 	}
 
@@ -221,6 +228,7 @@ NodeIndex* Parser::index() {
 		index->addNode(exp());
 		if (currentToken->getType() != Token::RightBracket) {
 			//error
+			error();
 		}
 		return index;
 	} else {
@@ -244,6 +252,7 @@ NodeExp2* Parser::exp2() {
 			exp2->addNode(exp());
 			if (!checkToken(Token::RightParent)) {
 				//error
+				error();
 			}
 			return exp2;
 		}
@@ -277,6 +286,7 @@ NodeExp2* Parser::exp2() {
 		}
 		default:
 			//return error
+			error();
 			break;
 	}
 	//return new NodeExp2();

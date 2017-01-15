@@ -42,6 +42,7 @@ private:
 	ParseTree* tree;
 	void nextToken();
 	bool checkToken(Token::TType token);
+	void error();
 	NodeProg* prog();
 	NodeDecls* decls();
 	NodeDecl* decl();
