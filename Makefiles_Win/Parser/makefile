@@ -26,7 +26,10 @@ SCANNERDIR = ../Scanner
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
 OBJS = $(OBJDIR)/Parser.o \
-	   $(OBJDIR)/ParseTree.o
+       $(OBJDIR)/Node.o \
+       $(OBJDIR)/ParseTree.o \
+	   $(OBJDIR)/ParseTreeVisitor.o 
+	   
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 

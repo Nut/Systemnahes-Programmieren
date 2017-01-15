@@ -11,6 +11,7 @@
 
 class ParseTreeVisitorType: public ParseTreeVisitor {
 public:
+	ParseTreeVisitorType();
 	virtual ~ParseTreeVisitorType();
 
 	void typeCheck(ParseTree* tree);

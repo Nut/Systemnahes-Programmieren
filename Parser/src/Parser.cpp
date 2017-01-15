@@ -7,6 +7,7 @@
 
 #include "../includes/Parser.h"
 #include <iostream>
+#include <stdlib.h>
 
 Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable;
