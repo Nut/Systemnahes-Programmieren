@@ -41,6 +41,7 @@ private:
 	Scanner* scanner;
 	ParseTree* tree;
 	void nextToken();
+	void checkTokenError(Token::TType token);
 	bool checkToken(Token::TType token);
 	void error();
 	NodeProg* prog();

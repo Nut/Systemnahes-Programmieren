@@ -58,7 +58,7 @@ void Automat::reset() {
 
 void Automat::clearLexem() {
 	this->indexLexem = 0;
-	this->sizeLexem = 128;
+	this->sizeLexem = 1024;
 	delete[] lexem;
     this->lexem = new char[sizeLexem];
     for (unsigned int i = 0; i <= sizeLexem; ++i) {
