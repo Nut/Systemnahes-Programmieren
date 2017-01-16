@@ -1,2 +1,8 @@
 int test;
-test := 7;
+fsfsfsf;
+int[6] test2;
+int test3;
+test := 3;
+test2[1] := 455;
+test := 4 + 5;
+gdsjhgdsjgdshgdsh

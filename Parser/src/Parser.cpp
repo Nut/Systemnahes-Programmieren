@@ -11,11 +11,8 @@
 
 Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable;
-	cout << "Scanner init" << endl;
 	this->scanner = new Scanner(filename, symtab);
-	cout << "ParseTree init" << endl;
 	this->tree = new ParseTree();
-	cout << "Set currentToken to null" << endl;
 	this->currentToken = NULL;
 }
 
@@ -26,6 +23,9 @@ Parser::~Parser() {
 
 void Parser::nextToken() {
 	this->currentToken = this->scanner->nextToken();
+	if (currentToken == NULL) {
+		exit(EXIT_FAILURE);
+	}
 }
 
 
@@ -48,11 +48,12 @@ bool Parser::checkToken(Token::TType type) {
 }
 
 void Parser::error() {
-	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
+	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->typeToString() << endl;
 	exit(EXIT_FAILURE);
 }
 
 ParseTree* Parser::parse() {
+	cout << "parse()" << endl;
 	nextToken(); //get first token
 	this->tree->addProg(prog());
 	return this->tree;
@@ -62,8 +63,11 @@ ParseTree* Parser::parse() {
  * PROG ::= DECLS STATEMENTS
  */
 NodeProg* Parser::prog() {
+	cout << "prog()" << endl;
 	NodeProg* prog = new NodeProg();
+	cout << "Before decls()" << endl;
 	prog->addNode(decls());
+	cout << "Before statements()" << endl;
 	prog->addNode(statements());
 	return prog;
 }
@@ -72,13 +76,18 @@ NodeProg* Parser::prog() {
  * DECLS ::= DECL;DECLS | e
  */
 NodeDecls* Parser::decls() {
+	cout << "decls()" << endl;
 	if (checkToken(Token::Int)) {
 		NodeDecls* declarations = new NodeDecls();
 		declarations->addNode(decl());
+		cout << "After decl()" << endl;
 		checkTokenError(Token::Semicolon);
+		cout << "After checkToken Semicolon" << endl;
 		declarations->addNode(decls());
+		cout << "After decls()" << endl;
 		return declarations;
 	} else {
+		cout << "No decls" << endl;
 		return new NodeEpsilon();
 	}
 
@@ -88,12 +97,18 @@ NodeDecls* Parser::decls() {
  * DECL ::= int ARRAY identifier
  */
 NodeDecl* Parser::decl() {
+	cout << "decl()" << endl;
 	NodeDecl* decl = new NodeDecl();
 	decl->addNode(array());
+	cout << "After array()" << endl;
 	checkTokenError(Token::Identifier);
+	cout << "After tokenCheck" << endl;
 	NodeIdentifier* identifier = new NodeIdentifier();
-	identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
+	cout << "After Node creating" << endl;
+	//identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
+	cout << "Before addNode" << endl;
 	decl->addNode(identifier);
+	cout << "Before return decl" << endl;
 	return decl;
 }
 
@@ -101,13 +116,16 @@ NodeDecl* Parser::decl() {
  * ARRAY ::= [integer] | e
  */
 NodeArray* Parser::array() {
+	cout << "array()" << endl;
 	if (checkToken(Token::LeftBracket)) {
+		cout << "Inside array()" << endl;
 		NodeArray* array = new NodeArray();
 		checkTokenError(Token::Integer);
 		array->addInteger(new NodeInteger(currentToken->getValue()));
 		checkTokenError(Token::RightBracket);
 		return array;
 	} else {
+		cout << "Else array()" << endl;
 		return new NodeEpsilon();
 	}
 }
@@ -169,41 +187,33 @@ NodeStatement* Parser::statement() {
 		}
 		case Token::LeftCurved: {
 			NodeStatementBlock* statement = new NodeStatementBlock();
-			if (checkToken(Token::LeftCurved)) {
-				statement->addNode(statements());
-				checkToken(Token::RightCurved);
-			}
+			checkTokenError(Token::LeftCurved);
+			statement->addNode(statements());
+			checkTokenError(Token::RightCurved);
 			return statement;
 		}
 		case Token::If: {
 			NodeStatementIf* statement_ = new NodeStatementIf();
-			if (checkToken(Token::If)) {
-				checkToken(Token::LeftParent);
-				statement_->addNode(exp());
-				checkToken(Token::RightParent);
-				statement_->addNodeIf(statement());
-				checkToken(Token::Else);
-				statement_->addNodeElse(statement());
-			}
+			checkTokenError(Token::LeftParent);
+			statement_->addNode(exp());
+			checkTokenError(Token::RightParent);
+			statement_->addNodeIf(statement());
+			checkTokenError(Token::Else);
+			statement_->addNodeElse(statement());
 			return statement_;
 		}
 		case Token::While: {
 			NodeStatementWhile* statement_ = new NodeStatementWhile();
-			if (checkToken(Token::If)) {
-				checkToken(Token::LeftParent);
-				statement_->addNode(exp());
-				checkToken(Token::RightParent);
-				statement_->addNode(statement());
-			}
+			checkTokenError(Token::LeftParent);
+			statement_->addNode(exp());
+			checkTokenError(Token::RightParent);
+			statement_->addNode(statement());
 			return statement_;
 		}
 		default:
-			//error
 			error();
-			break;
+			return new NodeStatement();
 	}
-
-	//return statement;
 }
 
 NodeIndex* Parser::index() {
@@ -231,7 +241,7 @@ NodeExp2* Parser::exp2() {
 			nextToken();
 			NodeExp2Bracket* exp2 = new NodeExp2Bracket();
 			exp2->addNode(exp());
-			checkToken(Token::RightParent);
+			checkTokenError(Token::RightParent);
 			return exp2;
 		}
 		case Token::Identifier: {
