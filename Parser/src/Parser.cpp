@@ -27,12 +27,8 @@ void Parser::nextToken() {
 
 bool Parser::checkToken(Token::TType type) {
 	if (this->currentToken->getType() != type) {
-		//std::cerr << "Error: unerwartetes Token " << myTok.toString() << ", " << TokenTypeStr[type] << " erwartet" << std::endl;
-		//exit(EXIT_FAILURE);
-		cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
-		return false;
+		error();
 	}
-
 	nextToken();
 	return true;
 }
@@ -88,8 +84,7 @@ NodeDecl* Parser::decl() {
 		identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
 		decl->addNode(identifier);
 	} else {
-		cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
-		exit(EXIT_FAILURE);
+		error();
 	}
 	return decl;
 }
@@ -104,14 +99,10 @@ NodeArray* Parser::array() {
 		if (currentToken->getType() == Token::Integer) {
 			array->addInteger(new NodeInteger(currentToken->getValue()));
 			nextToken();
-		} else { //????
-			cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
-			exit(EXIT_FAILURE);
+		} else {
+			error();
 		}
-		if (!checkToken(Token::RightBracket)) {
-			cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
-			exit(EXIT_FAILURE);
-		}
+		checkToken(Token::RightBracket);
 		return array;
 	} else {
 		return new NodeEpsilon();
@@ -227,7 +218,6 @@ NodeIndex* Parser::index() {
 		NodeIndex* index = new NodeIndex();
 		index->addNode(exp());
 		if (currentToken->getType() != Token::RightBracket) {
-			//error
 			error();
 		}
 		return index;
@@ -250,10 +240,7 @@ NodeExp2* Parser::exp2() {
 			nextToken();
 			NodeExp2Bracket* exp2 = new NodeExp2Bracket();
 			exp2->addNode(exp());
-			if (!checkToken(Token::RightParent)) {
-				//error
-				error();
-			}
+			checkToken(Token::RightParent);
 			return exp2;
 		}
 		case Token::Identifier: {
@@ -285,11 +272,9 @@ NodeExp2* Parser::exp2() {
 			return exp2_;
 		}
 		default:
-			//return error
 			error();
-			break;
+			return true;
 	}
-	//return new NodeExp2();
 }
 
 NodeOpExp* Parser::opExp() {
