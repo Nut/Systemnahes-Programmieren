@@ -67,7 +67,7 @@ class NodeOpExp;
 
 class ParseTreeVisitor {
 public:
-	virtual ~ParseTreeVisitor();
+	virtual ~ParseTreeVisitor() {}
 	virtual void visitNode(Node* node) = 0;
 	virtual void visitNode(NodeProg* node) = 0;
 	virtual void visitNode(NodeArray* node) = 0;

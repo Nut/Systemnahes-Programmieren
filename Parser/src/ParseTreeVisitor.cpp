@@ -8,7 +8,7 @@
 #include "../includes/ParseTreeVisitor.h"
 
 ParseTreeVisitor::~ParseTreeVisitor() {}
-
+/*
 //void ParseTreeVisitor::visitNode(Node* node) {}
 void ParseTreeVisitor::visitNode(NodeProg* node) {}
 void ParseTreeVisitor::visitNode(NodeArray* node) {}
@@ -34,5 +34,5 @@ void ParseTreeVisitor::visitNode(NodeStatementIf* node) {}
 void ParseTreeVisitor::visitNode(NodeStatementRead* node) {}
 void ParseTreeVisitor::visitNode(NodeStatementWhile* node) {}
 void ParseTreeVisitor::visitNode(NodeStatementWrite* node) {}
-void ParseTreeVisitor::visitNode(NodeStatements* node) {}
+void ParseTreeVisitor::visitNode(NodeStatements* node) {}*/
 

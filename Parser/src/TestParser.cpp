@@ -19,9 +19,8 @@ int main(int argc, char **argv) {
 	ParseTree* tree = parser->parse();
 
 	cout << "type checking..." << endl;
-	//ParseTreeVisitorType* typeChecker = new ParseTreeVisitorType();
-	//typeChecker = new ParseTreeVisitorType;
-	//typeChecker->typeCheck(tree);
+	ParseTreeVisitorType tc;
+	tc.typeCheck(tree);
 }
 
 

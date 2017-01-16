@@ -8,13 +8,44 @@
 #ifndef PARSER_INCLUDES_PARSETREEVISITORTYPE_H_
 #define PARSER_INCLUDES_PARSETREEVISITORTYPE_H_
 
+#include "ParseTreeVisitor.h"
+
+#include "Node.h"
+#include "Nodes/NodeProg.h"
+#include "Nodes/NodeDecls.h"
+#include "Nodes/NodeDecl.h"
+#include "Nodes/NodeArray.h"
+#include "Nodes/NodeStatements.h"
+#include "Nodes/NodeIdentifier.h"
+#include "Nodes/NodeStatement.h"
+#include "Nodes/NodeStatementAssign.h"
+#include "Nodes/NodeStatementBlock.h"
+#include "Nodes/NodeStatementIf.h"
+#include "Nodes/NodeStatementRead.h"
+#include "Nodes/NodeStatementWhile.h"
+#include "Nodes/NodeStatementWrite.h"
+#include "Nodes/NodeIndex.h"
+#include "Nodes/NodeExp.h"
+#include "Nodes/NodeOpExp.h"
+#include "Nodes/NodeExp2.h"
+#include "Nodes/NodeExp2Bracket.h"
+#include "Nodes/NodeExp2Exclamation.h"
+#include "Nodes/NodeExp2Identifier.h"
+#include "Nodes/NodeExp2Integer.h"
+#include "Nodes/NodeExp2Minus.h"
+#include "Nodes/NodeInteger.h"
+#include "Nodes/NodeOp.h"
+#include "Nodes/NodeEpsilon.h"
+
+#include "ParseTree.h"
 
 class ParseTreeVisitorType: public ParseTreeVisitor {
 public:
-	ParseTreeVisitorType();
-	virtual ~ParseTreeVisitorType();
+	/*ParseTreeVisitorType();
+	virtual ~ParseTreeVisitorType();*/
 
 	void typeCheck(ParseTree* tree);
+	void visitNode(Node* node);
 	void visitNode(NodeProg* node);
 	void visitNode(NodeArray* node);
 	void visitNode(NodeDecl* node);

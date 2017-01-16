@@ -6,13 +6,14 @@
  */
 
 #include "../includes/ParseTreeVisitorType.h"
+#include "../includes/Node.h"
 #include <iostream>
 
 using namespace std;
 
-ParseTreeVisitorType::ParseTreeVisitorType() {}
+/*ParseTreeVisitorType::ParseTreeVisitorType() {}
 
-ParseTreeVisitorType::~ParseTreeVisitorType() {}
+ParseTreeVisitorType::~ParseTreeVisitorType() {}*/
 
 void ParseTreeVisitorType::typeCheck(ParseTree* tree) {
 	tree->getProg()->accept(this);
@@ -180,7 +181,7 @@ void ParseTreeVisitorType::visitNode(NodeIndex* node) {
 void ParseTreeVisitorType::visitNode(NodeExp* node) {
 	node->getExp2()->accept(this);
 	node->getOpExp()->accept(this);
-	if (node->getOpExp()->getType ==Node::noType) {
+	if (node->getOpExp()->getType() == Node::noType) {
 		node->setType(node->getExp2()->getType());
 	} else if (node->getExp2()->getType() != node->getOpExp()->getType()) {
 		node->setType(Node::errorType);
@@ -271,5 +272,9 @@ void ParseTreeVisitorType::visitNode(NodeInteger* node) {
 }
 
 void ParseTreeVisitorType::visitNode(NodeStatement* node) {
+	//node->setType(Node::opPlus);
+}
+
+void ParseTreeVisitorType::visitNode(Node* node) {
 	//node->setType(Node::opPlus);
 }

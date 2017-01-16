@@ -1,8 +1,2 @@
 int test;
-int[45] test;
-test[0] := 8;
-
-while(5) value := 5;
-while(5) {
-	value[3] := 5;
-};
+test := 7;
