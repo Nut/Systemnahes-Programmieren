@@ -162,10 +162,14 @@ NodeStatement* Parser::statement() {
 			NodeStatementRead* statement = new NodeStatementRead();
 			nextToken();
 			checkTokenError(Token::LeftParent);
-			NodeIdentifier* identifier = new NodeIdentifier();
-			identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
-			statement->addNode(identifier);
-			nextToken();
+			if (currentToken->getType() == Token::Identifier) {
+				NodeIdentifier* identifier = new NodeIdentifier();
+				identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
+				statement->addNode(identifier);
+				nextToken();
+			} else {
+				error();
+			}
 			statement->addNode(index());
 			checkTokenError(Token::RightParent);
 			return statement;
