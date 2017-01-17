@@ -34,7 +34,7 @@ bool Parser::checkToken(Token::TType type) {
 }
 
 void Parser::error() {
-	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->getType() << endl;
+	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->typeToString() << endl;
 	exit(EXIT_FAILURE);
 }
 
@@ -273,7 +273,7 @@ NodeExp2* Parser::exp2() {
 		}
 		default:
 			error();
-			return true;
+			return new NodeExp2();
 	}
 }
 
