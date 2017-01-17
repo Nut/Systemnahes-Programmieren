@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
 	ofstream output;
     output.open(argv[2]);
 	Token* t;
-	while ((t = scanner->nextToken())) {
+	while ((t = scanner->nextToken())->getType() != Token::Eof) {
 		switch (t->getType()) {
 			case Token::Identifier:
 				output << "Token " << t->typeToString() << "\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn() << "\t\tLexem: " << t->getSymtabEntry()->getInfo()->getName() << endl;

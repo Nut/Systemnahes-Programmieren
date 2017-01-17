@@ -29,6 +29,7 @@ public:
 		opAnd
 	};
 
+	Node();
 	virtual ~Node();
 	virtual void setType(Node::NodeType type);
 	virtual Node::NodeType getType();

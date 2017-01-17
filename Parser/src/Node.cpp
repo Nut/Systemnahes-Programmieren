@@ -8,6 +8,10 @@
 
 #include "../includes/Node.h"
 
+Node::Node() {
+	this->type = Node::noType;
+}
+
 Node::~Node() {}
 
 void Node::accept(ParseTreeVisitor* visitor) {

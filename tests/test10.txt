@@ -1,2 +1,2 @@
 int test;
-test := 7;
+test := 3;

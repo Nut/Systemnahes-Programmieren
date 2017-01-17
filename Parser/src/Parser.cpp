@@ -13,7 +13,7 @@ Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable;
 	this->scanner = new Scanner(filename, symtab);
 	this->tree = new ParseTree();
-	this->currentToken = NULL;
+	this->currentToken = this->scanner->nextToken();
 }
 
 Parser::~Parser() {
@@ -22,15 +22,25 @@ Parser::~Parser() {
 }
 
 void Parser::nextToken() {
-	this->currentToken = this->scanner->nextToken();
+	if (currentToken->getType() != Token::Eof) {
+		this->currentToken = this->scanner->nextToken();
+	}
 }
 
-bool Parser::checkToken(Token::TType type) {
+void Parser::checkTokenError(Token::TType type) {
 	if (this->currentToken->getType() != type) {
 		error();
 	}
 	nextToken();
-	return true;
+}
+
+bool Parser::checkToken(Token::TType type) {
+	if (this->currentToken->getType() == type) {
+		nextToken();
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void Parser::error() {
@@ -39,7 +49,6 @@ void Parser::error() {
 }
 
 ParseTree* Parser::parse() {
-	nextToken();
 	this->tree->addProg(prog());
 	return this->tree;
 }
@@ -58,14 +67,11 @@ NodeProg* Parser::prog() {
  * DECLS ::= DECL;DECLS | e
  */
 NodeDecls* Parser::decls() {
-	if (currentToken->getType() == Token::Int) {
-		nextToken();
+	if (checkToken(Token::Int)) {
 		NodeDecls* declarations = new NodeDecls();
 		declarations->addNode(decl());
-		nextToken();
-		if (checkToken(Token::Semicolon)) {
-			declarations->addNode(decls());
-		}
+		checkTokenError(Token::Semicolon);
+		declarations->addNode(decls());
 		return declarations;
 	} else {
 		return new NodeEpsilon();
@@ -83,6 +89,7 @@ NodeDecl* Parser::decl() {
 		NodeIdentifier* identifier = new NodeIdentifier();
 		identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
 		decl->addNode(identifier);
+		nextToken();
 	} else {
 		error();
 	}
@@ -93,8 +100,7 @@ NodeDecl* Parser::decl() {
  * ARRAY ::= [integer] | e
  */
 NodeArray* Parser::array() {
-	if (currentToken->getType() == Token::LeftBracket) {
-		nextToken();
+	if (checkToken(Token::LeftBracket)) {
 		NodeArray* array = new NodeArray();
 		if (currentToken->getType() == Token::Integer) {
 			array->addInteger(new NodeInteger(currentToken->getValue()));
@@ -102,7 +108,7 @@ NodeArray* Parser::array() {
 		} else {
 			error();
 		}
-		checkToken(Token::RightBracket);
+		checkTokenError(Token::RightBracket);
 		return array;
 	} else {
 		return new NodeEpsilon();
@@ -122,12 +128,10 @@ NodeStatements* Parser::statements() {
 		case Token::While: {
 			NodeStatements* statements_ = new NodeStatements();
 			statements_->addNode(statement());
-			if (currentToken->getType() == Token::Semicolon) {
-				statements_->addNode(statements());
-			}
+			checkTokenError(Token::Semicolon);
+			statements_->addNode(statements());
 			return statements_;
 		}
-
 		default:
 			return new NodeEpsilon();
 	}
@@ -142,84 +146,66 @@ NodeStatement* Parser::statement() {
 			statement->addNode(identifier);
 			nextToken();
 			statement->addNode(index());
-			nextToken();
-			if (checkToken(Token::Assign)) {
-				statement->addNode(exp());
-			} else {
-				//error ???
-				error();
-			}
+			checkTokenError(Token::Assign);
+			statement->addNode(exp());
 			return statement;
 		}
 		case Token::Write: {
 			NodeStatementWrite* statement = new NodeStatementWrite();
 			nextToken();
-			if (checkToken(Token::LeftParent)) {
-				statement->addNode(exp());
-			}
-			checkToken(Token::RightParent);
+			checkTokenError(Token::LeftParent);
+			statement->addNode(exp());
+			checkTokenError(Token::RightParent);
 			return statement;
 		}
 		case Token::Read: {
 			NodeStatementRead* statement = new NodeStatementRead();
 			nextToken();
-			if (checkToken(Token::LeftParent)) {
-				NodeIdentifier* identifier = new NodeIdentifier();
-				identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
-				statement->addNode(identifier);
-				nextToken();
-				statement->addNode(index());
-			}
-			checkToken(Token::RightParent);
+			checkTokenError(Token::LeftParent);
+			NodeIdentifier* identifier = new NodeIdentifier();
+			identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
+			statement->addNode(identifier);
+			nextToken();
+			statement->addNode(index());
+			checkTokenError(Token::RightParent);
 			return statement;
 		}
 		case Token::LeftCurved: {
 			NodeStatementBlock* statement = new NodeStatementBlock();
-			if (checkToken(Token::LeftCurved)) {
-				statement->addNode(statements());
-				checkToken(Token::RightCurved);
-			}
+			checkTokenError(Token::LeftCurved);
+			statement->addNode(statements());
+			checkTokenError(Token::RightCurved);
 			return statement;
 		}
 		case Token::If: {
 			NodeStatementIf* statement_ = new NodeStatementIf();
-			if (checkToken(Token::If)) {
-				checkToken(Token::LeftParent);
-				statement_->addNode(exp());
-				checkToken(Token::RightParent);
-				statement_->addNodeIf(statement());
-				checkToken(Token::Else);
-				statement_->addNodeElse(statement());
-			}
+			checkTokenError(Token::LeftParent);
+			statement_->addNode(exp());
+			checkTokenError(Token::RightParent);
+			statement_->addNodeIf(statement());
+			checkTokenError(Token::Else);
+			statement_->addNodeElse(statement());
 			return statement_;
 		}
 		case Token::While: {
 			NodeStatementWhile* statement_ = new NodeStatementWhile();
-			if (checkToken(Token::If)) {
-				checkToken(Token::LeftParent);
-				statement_->addNode(exp());
-				checkToken(Token::RightParent);
-				statement_->addNode(statement());
-			}
+			checkTokenError(Token::LeftParent);
+			statement_->addNode(exp());
+			checkTokenError(Token::RightParent);
+			statement_->addNode(statement());
 			return statement_;
 		}
 		default:
-			//error
 			error();
-			break;
+			return new NodeStatement();
 	}
-
-	//return statement;
 }
 
 NodeIndex* Parser::index() {
-	if (currentToken->getType() == Token::LeftBracket) {
-		nextToken();
+	if (checkToken(Token::LeftBracket)) {
 		NodeIndex* index = new NodeIndex();
 		index->addNode(exp());
-		if (currentToken->getType() != Token::RightBracket) {
-			error();
-		}
+		checkTokenError(Token::RightBracket);
 		return index;
 	} else {
 		return new NodeEpsilon();
@@ -240,7 +226,7 @@ NodeExp2* Parser::exp2() {
 			nextToken();
 			NodeExp2Bracket* exp2 = new NodeExp2Bracket();
 			exp2->addNode(exp());
-			checkToken(Token::RightParent);
+			checkTokenError(Token::RightParent);
 			return exp2;
 		}
 		case Token::Identifier: {
@@ -293,7 +279,6 @@ NodeOpExp* Parser::opExp() {
 			opExp->addNode(exp());
 			return opExp;
 		}
-
 		default:
 			return new NodeEpsilon();
 	}

@@ -100,6 +100,10 @@ char* Token::typeToString() {
 			return "Write";
 		case Token::Read:
 			return "Read";
+		case Token::Int:
+			return "Int";
+		case Token::Eof:
+			return "Eof";
 		default:
 			return "[Unknown Type]";
 	}

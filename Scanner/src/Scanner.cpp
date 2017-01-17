@@ -124,6 +124,6 @@ Token* Scanner::createToken() {
 			}
 		case Automat::Eof:
 		default:
-			return NULL;
+			return new Token(Token::Eof, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 	}
 }
