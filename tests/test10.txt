@@ -1,2 +1,9 @@
 int test;
+int[6] test2;
+int test3;
 test := 3;
+test2[test] := 455;
+
+read(test);
+
+write(324);

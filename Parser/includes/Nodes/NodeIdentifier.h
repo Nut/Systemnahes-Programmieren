@@ -13,6 +13,7 @@
 class NodeIdentifier: public Node {
 private:
 	Information* information;
+
 public:
 	void addInformation(Information* information) {
 		this->information = information;
@@ -24,6 +25,14 @@ public:
 
 	Information* getInformation() {
 		return this->information;
+	}
+
+	virtual void setType(Node::NodeType type) {
+		information->setType(type);
+	}
+
+	virtual Node::NodeType getType() {
+		return information->getType();
 	}
 };
 

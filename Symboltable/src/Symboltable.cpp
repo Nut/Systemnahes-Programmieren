@@ -38,7 +38,8 @@ SymtabEntry* Symboltable::insert(char* lexem) {
 	} else {
 		while (tmpSymtabEntry != NULL) {
 			if (tmpSymtabEntry->getInfo()->compareLex(lexem)) {
-				return table[hashValue % TABLE_SIZE]; /* pointer zurück geben */
+				return tmpSymtabEntry;
+				//return table[hashValue % TABLE_SIZE]; /* pointer zurück geben */
 			}
 			tmpSymtabEntry = tmpSymtabEntry->getNext();
 		}
@@ -51,6 +52,7 @@ SymtabEntry* Symboltable::insert(char* lexem) {
 		char* p = stringTable->insert(lexem, strlen(lexem));
 		SymtabEntry* newEntry = new SymtabEntry(new Information(p, hashValue));
 		tmpSymtabEntry->setNext(newEntry);
+		return newEntry;
 	}
 
 	return table[hashValue % TABLE_SIZE]; /* pointer zurück geben */

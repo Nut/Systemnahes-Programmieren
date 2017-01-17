@@ -211,7 +211,7 @@ void ParseTreeVisitorType::visitNode(NodeExp2Identifier* node) {
 	} else if (node->getIdentifier()->getType() == Node::intArrayType && node->getIndex()->getType() == Node::arrayType) {
 		node->setType(Node::intType);
 	} else {
-		cerr << "no primitv Type" << endl;
+		cerr << "no primitive Type" << endl;
 		node->setType(Node::errorType);
 	}
 }

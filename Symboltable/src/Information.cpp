@@ -3,6 +3,7 @@
 Information::Information(char* lexem, unsigned int key) {
 	this->name = lexem;
 	this->key = key;
+	this->type = Node::noType;
 }
 
 Information::~Information() {
@@ -41,4 +42,12 @@ int Information::stringCompare( const char *s1, const char *s2) {
 
 unsigned int Information::getKey() {
 	return this->key;
+}
+
+Node::NodeType Information::getType() {
+	return this->type;
+}
+
+void Information::setType(Node::NodeType type) {
+	this->type = type;
 }
