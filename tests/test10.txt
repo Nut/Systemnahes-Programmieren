@@ -1,9 +1,11 @@
 int test;
-int[6] test2;
-int test3;
-test := 3;
-test2[test] := 455;
-
-read(test);
-
-write(324);
+if (test =:= 3) 
+test := 3
+else
+test := 4; 
+if (test =:= 3) {
+test := 3; }
+else {
+test := 4; }; 
+while (test =:= 3) 
+test := test + 2;

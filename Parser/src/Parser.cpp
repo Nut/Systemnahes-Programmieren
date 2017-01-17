@@ -172,13 +172,14 @@ NodeStatement* Parser::statement() {
 		}
 		case Token::LeftCurved: {
 			NodeStatementBlock* statement = new NodeStatementBlock();
-			checkTokenError(Token::LeftCurved);
+			nextToken();
 			statement->addNode(statements());
 			checkTokenError(Token::RightCurved);
 			return statement;
 		}
 		case Token::If: {
 			NodeStatementIf* statement_ = new NodeStatementIf();
+			nextToken();
 			checkTokenError(Token::LeftParent);
 			statement_->addNode(exp());
 			checkTokenError(Token::RightParent);
@@ -189,6 +190,7 @@ NodeStatement* Parser::statement() {
 		}
 		case Token::While: {
 			NodeStatementWhile* statement_ = new NodeStatementWhile();
+			nextToken();
 			checkTokenError(Token::LeftParent);
 			statement_->addNode(exp());
 			checkTokenError(Token::RightParent);
