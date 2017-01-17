@@ -102,6 +102,8 @@ char* Token::typeToString() {
 			return "Read";
 		case Token::Int:
 			return "Int";
+		case Token::Eof:
+			return "Eof";
 		default:
 			return "[Unknown Type]";
 	}

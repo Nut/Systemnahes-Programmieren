@@ -41,7 +41,8 @@ public:
 		RightBracket,
 		Unknown,
 		Null,
-		Error
+		Error,
+		Eof
 	};
 	Token(Token::TType type, int line, int column, SymtabEntry* symtabentry, unsigned long value, char symbol);
 	virtual ~Token();

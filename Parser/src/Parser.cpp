@@ -13,7 +13,7 @@ Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable;
 	this->scanner = new Scanner(filename, symtab);
 	this->tree = new ParseTree();
-	this->currentToken = NULL;
+	this->currentToken = this->scanner->nextToken();
 }
 
 Parser::~Parser() {
@@ -22,14 +22,11 @@ Parser::~Parser() {
 }
 
 void Parser::nextToken() {
-	this->currentToken = this->scanner->nextToken();
-	if (currentToken == NULL) {
-		exit(EXIT_FAILURE);
+	if (currentToken->getType() != Token::Eof) {
+		this->currentToken = this->scanner->nextToken();
 	}
 }
 
-
-//checkToken, false => error, true => nextToken
 void Parser::checkTokenError(Token::TType type) {
 	if (this->currentToken->getType() != type) {
 		error();
@@ -37,7 +34,6 @@ void Parser::checkTokenError(Token::TType type) {
 	nextToken();
 }
 
-//checkToken for Epsilon return, only nextToken() if true
 bool Parser::checkToken(Token::TType type) {
 	if (this->currentToken->getType() == type) {
 		nextToken();
@@ -53,8 +49,6 @@ void Parser::error() {
 }
 
 ParseTree* Parser::parse() {
-	cout << "parse()" << endl;
-	nextToken(); //get first token
 	this->tree->addProg(prog());
 	return this->tree;
 }
@@ -63,11 +57,8 @@ ParseTree* Parser::parse() {
  * PROG ::= DECLS STATEMENTS
  */
 NodeProg* Parser::prog() {
-	cout << "prog()" << endl;
 	NodeProg* prog = new NodeProg();
-	cout << "Before decls()" << endl;
 	prog->addNode(decls());
-	cout << "Before statements()" << endl;
 	prog->addNode(statements());
 	return prog;
 }
@@ -76,18 +67,13 @@ NodeProg* Parser::prog() {
  * DECLS ::= DECL;DECLS | e
  */
 NodeDecls* Parser::decls() {
-	cout << "decls()" << endl;
 	if (checkToken(Token::Int)) {
 		NodeDecls* declarations = new NodeDecls();
 		declarations->addNode(decl());
-		cout << "After decl()" << endl;
 		checkTokenError(Token::Semicolon);
-		cout << "After checkToken Semicolon" << endl;
 		declarations->addNode(decls());
-		cout << "After decls()" << endl;
 		return declarations;
 	} else {
-		cout << "No decls" << endl;
 		return new NodeEpsilon();
 	}
 
@@ -97,18 +83,16 @@ NodeDecls* Parser::decls() {
  * DECL ::= int ARRAY identifier
  */
 NodeDecl* Parser::decl() {
-	cout << "decl()" << endl;
 	NodeDecl* decl = new NodeDecl();
 	decl->addNode(array());
-	cout << "After array()" << endl;
-	checkTokenError(Token::Identifier);
-	cout << "After tokenCheck" << endl;
-	NodeIdentifier* identifier = new NodeIdentifier();
-	cout << "After Node creating" << endl;
-	//identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
-	cout << "Before addNode" << endl;
-	decl->addNode(identifier);
-	cout << "Before return decl" << endl;
+	if (currentToken->getType() == Token::Identifier) {
+		NodeIdentifier* identifier = new NodeIdentifier();
+		identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
+		decl->addNode(identifier);
+		nextToken();
+	} else {
+		error();
+	}
 	return decl;
 }
 
@@ -116,16 +100,17 @@ NodeDecl* Parser::decl() {
  * ARRAY ::= [integer] | e
  */
 NodeArray* Parser::array() {
-	cout << "array()" << endl;
 	if (checkToken(Token::LeftBracket)) {
-		cout << "Inside array()" << endl;
 		NodeArray* array = new NodeArray();
-		checkTokenError(Token::Integer);
-		array->addInteger(new NodeInteger(currentToken->getValue()));
+		if (currentToken->getType() == Token::Integer) {
+			array->addInteger(new NodeInteger(currentToken->getValue()));
+			nextToken();
+		} else {
+			error();
+		}
 		checkTokenError(Token::RightBracket);
 		return array;
 	} else {
-		cout << "Else array()" << endl;
 		return new NodeEpsilon();
 	}
 }
