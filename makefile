@@ -27,6 +27,8 @@ clean:
 	rm -f $(PARSERDIR)/$(OBJDIR)/*.o
 	rm -f $(SCANNERDIR)/$(OBJDIR)/*.o
 	rm -f $(SCANNERDIR)/debug/*
+	rm -f $(PARSERDIR)/debug/*
+	
 	
 
 automatOBJs:
