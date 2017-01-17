@@ -9,6 +9,7 @@
 #include "../includes/ParseTree.h"
 #include "../includes/ParseTreeVisitor.h"
 #include "../includes/ParseTreeVisitorType.h"
+#include "../includes/ParseTreeVisitorCode.h"
 #include <iostream>
 
 using namespace std;
@@ -21,6 +22,10 @@ int main(int argc, char **argv) {
 	cout << "type checking..." << endl;
 	ParseTreeVisitorType tc;
 	tc.typeCheck(tree);
+
+	cout << "generate code..." << endl;
+	ParseTreeVisitorCode mc;
+	mc.makeCode(tree);
 }
 
 

@@ -28,7 +28,8 @@ SCANNERDIR = ../Scanner
 OBJS = $(OBJDIR)/Parser.o \
        $(OBJDIR)/Node.o \
        $(OBJDIR)/ParseTree.o \
-	   $(OBJDIR)/ParseTreeVisitorType.o
+	   $(OBJDIR)/ParseTreeVisitorType.o \
+	   $(OBJDIR)/ParseTreeVisitorCode.o
 	   
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o

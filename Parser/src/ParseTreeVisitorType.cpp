@@ -11,10 +11,6 @@
 
 using namespace std;
 
-/*ParseTreeVisitorType::ParseTreeVisitorType() {}
-
-ParseTreeVisitorType::~ParseTreeVisitorType() {}*/
-
 void ParseTreeVisitorType::typeCheck(ParseTree* tree) {
 	tree->getProg()->accept(this);
 }
@@ -54,10 +50,8 @@ void ParseTreeVisitorType::visitNode(NodeDecl* node) {
 	} else {
 		node->setType(Node::noType);
 		if (node->getArray()->getType() == Node::arrayType) {
-			//store
 			node->getIdentifier()->setType(Node::intArrayType);
 		} else {
-			//store
 			node->getIdentifier()->setType(Node::intType);
 		}
 	}
@@ -256,25 +250,48 @@ void ParseTreeVisitorType::visitNode(NodeOpExp* node) {
  * OP ::= + | - | * | : | < | > | = | =:= | &&
  */
 void ParseTreeVisitorType::visitNode(NodeOp* node) {
-	//node->setType(Node::opPlus);
+	switch (node->getToken()->getType()) {
+		case Token::Plus:
+			node->setType(Node::opPlus);
+			break;
+		case Token::Minus:
+			node->setType(Node::opMinus);
+			break;
+		case Token::Star:
+			node->setType(Node::opMult);
+			break;
+		case Token::Colon:
+			node->setType(Node::opDiv);
+			break;
+		case Token::LessThan:
+			node->setType(Node::opLess);
+			break;
+		case Token::GreaterThan:
+			node->setType(Node::opGreater);
+			break;
+		case Token::Equal:
+			node->setType(Node::opEqual);
+			break;
+		case Token::ColonBetweenEqual:
+			node->setType(Node::opUnEqual);
+			break;
+		case Token::And:
+			node->setType(Node::opAnd);
+			break;
+	}
 }
 
 void ParseTreeVisitorType::visitNode(NodeExp2* node) {
-	//node->setType(Node::opPlus);
 }
 
 void ParseTreeVisitorType::visitNode(NodeIdentifier* node) {
-	//node->setType(Node::opPlus);
 }
 
 void ParseTreeVisitorType::visitNode(NodeInteger* node) {
-	//node->setType(Node::opPlus);
 }
 
 void ParseTreeVisitorType::visitNode(NodeStatement* node) {
-	//node->setType(Node::opPlus);
 }
 
 void ParseTreeVisitorType::visitNode(Node* node) {
-	//node->setType(Node::opPlus);
 }
