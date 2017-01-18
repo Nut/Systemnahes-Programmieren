@@ -1,0 +1,16 @@
+DS $a 1
+DS $b 1
+DS $c 1
+DS $d 1
+DS $x 1
+DS $y 1
+DS $ggt 1
+DS $r0 1
+DS $r1 1
+DS $p0 1
+DS $p1 1
+DS $q0 1
+DS $q1 1
+DS $u 1
+NOP
+STP
