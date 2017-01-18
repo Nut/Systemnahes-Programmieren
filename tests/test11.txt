@@ -11,5 +11,3 @@ test := 3;
 
 
 :*read(foo);*:
-
-write(foo);

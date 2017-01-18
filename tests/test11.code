@@ -1,3 +1,4 @@
+DS $foo 5
 DS $test 1
 DS $test2 1
 LC 3

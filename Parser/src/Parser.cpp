@@ -139,6 +139,9 @@ NodeStatements* Parser::statements() {
 			statements_->addNode(statements());
 			return statements_;
 		}
+		case Token::Int:
+			error();
+			break;
 		default:
 			return new NodeEpsilon(NodeEpsilon::epsStatements);
 	}
