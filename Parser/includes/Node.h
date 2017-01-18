@@ -34,8 +34,13 @@ public:
 	virtual void setType(Node::NodeType type);
 	virtual Node::NodeType getType();
 	virtual void accept(ParseTreeVisitor* visitor);
+	unsigned int getLine();
+	unsigned int getColumn();
 
 	Node::NodeType type;
+
+private:
+	//Token* token;
 };
 
 

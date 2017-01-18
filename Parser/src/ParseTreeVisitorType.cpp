@@ -50,8 +50,7 @@ void ParseTreeVisitorType::visitNode(NodeEpsilon* node) {
 void ParseTreeVisitorType::visitNode(NodeDecl* node) {
 	node->getArray()->accept(this);
 	if (node->getIdentifier()->getType() != Node::noType) {
-		cout << "decl" << endl;
-		error("Identifier already defined", 0,0);
+		error("Identifier already defined", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	} else if (node->getArray()->getType() == Node::errorType) {
 		node->setType(Node::errorType);
@@ -72,7 +71,7 @@ void ParseTreeVisitorType::visitNode(NodeArray* node) {
 	if (node->getInteger()->getValue() > 0) {
 		node->setType(Node::arrayType);
 	} else {
-		error("no valid dimension", 0, 0);
+		error("no valid dimension", 0, 0); //??
 		node->setType(Node::errorType);
 	}
 }
@@ -93,14 +92,14 @@ void ParseTreeVisitorType::visitNode(NodeStatementAssign* node) {
 	node->getExp()->accept(this);
 	node->getIndex()->accept(this);
 	if (node->getIdentifier()->getType() == Node::noType) {
-		error("identifier not defined", 0, 0);
+		error("identifier not defined", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	} else if (node->getExp()->getType() == Node::intType && (
 			(node->getIdentifier()->getType() == Node::intType && node->getIndex()->getType() == Node::noType) ||
 			(node->getIdentifier()->getType() == Node::intArrayType && node->getIndex()->getType() == Node::arrayType))) {
 		node->setType(Node::noType);
 	} else {
-		error("incompatible types", 0, 0);
+		error("incompatible types", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	}
 }
@@ -119,13 +118,13 @@ void ParseTreeVisitorType::visitNode(NodeStatementWrite* node) {
 void ParseTreeVisitorType::visitNode(NodeStatementRead* node) {
 	node->getIndex()->accept(this);
 	if (node->getIdentifier()->getType() == Node::noType) {
-		error("identifier not defined", 0, 0);
+		error("identifier not defined", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	} else if (((node->getIdentifier()->getType() == Node::intType) && node->getIndex()->getType() == Node::noType) ||
 			((node->getIdentifier()->getType() == Node::intArrayType) && node->getIndex()->getType() == Node::arrayType)) {
 		node->setType(Node::noType);
 	} else {
-		error("incompatible types", 0, 0);
+		error("incompatible types", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	}
 }
@@ -206,14 +205,14 @@ void ParseTreeVisitorType::visitNode(NodeExp2Bracket* node) {
 void ParseTreeVisitorType::visitNode(NodeExp2Identifier* node) {
 	node->getIndex()->accept(this);
 	if (node->getIdentifier()->getType() == Node::noType) {
-		error("identifier not defined", 0, 0);
+		error("identifier not defined", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	} else if (node->getIdentifier()->getType() == Node::intType && node->getIndex()->getType() == Node::noType) {
 		node->setType(node->getIdentifier()->getType());
 	} else if (node->getIdentifier()->getType() == Node::intArrayType && node->getIndex()->getType() == Node::arrayType) {
 		node->setType(Node::intType);
 	} else {
-		error("no primitive Type", 0, 0);
+		error("no primitive Type", node->getIdentifier()->getLine(), node->getIdentifier()->getColumn());
 		node->setType(Node::errorType);
 	}
 }

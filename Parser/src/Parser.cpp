@@ -14,6 +14,9 @@ Parser::Parser(char* filename) {
 	this->scanner = new Scanner(filename, symtab);
 	this->tree = new ParseTree();
 	this->currentToken = this->scanner->nextToken();
+	if (currentToken->getType() == Token::Null) {
+		nextToken();
+	}
 }
 
 Parser::~Parser() {
@@ -24,6 +27,9 @@ Parser::~Parser() {
 void Parser::nextToken() {
 	if (currentToken->getType() != Token::Eof) {
 		this->currentToken = this->scanner->nextToken();
+		if (currentToken->getType() == Token::Null) {
+			nextToken();
+		}
 	}
 }
 
@@ -87,7 +93,7 @@ NodeDecl* Parser::decl() {
 	NodeDecl* decl = new NodeDecl();
 	decl->addNode(array());
 	if (currentToken->getType() == Token::Identifier) {
-		NodeIdentifier* identifier = new NodeIdentifier();
+		NodeIdentifier* identifier = new NodeIdentifier(currentToken);
 		identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
 		decl->addNode(identifier);
 		nextToken();
@@ -142,7 +148,7 @@ NodeStatement* Parser::statement() {
 	switch (currentToken->getType()) {
 		case Token::Identifier: {
 			NodeStatementAssign* statement = new NodeStatementAssign();
-			NodeIdentifier* identifier = new NodeIdentifier();
+			NodeIdentifier* identifier = new NodeIdentifier(currentToken);
 			identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
 			statement->addNode(identifier);
 			nextToken();
@@ -164,7 +170,7 @@ NodeStatement* Parser::statement() {
 			nextToken();
 			checkTokenError(Token::LeftParent);
 			if (currentToken->getType() == Token::Identifier) {
-				NodeIdentifier* identifier = new NodeIdentifier();
+				NodeIdentifier* identifier = new NodeIdentifier(currentToken);
 				identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
 				statement->addNode(identifier);
 				nextToken();
@@ -238,7 +244,7 @@ NodeExp2* Parser::exp2() {
 		}
 		case Token::Identifier: {
 			NodeExp2Identifier* exp2 = new NodeExp2Identifier();
-			NodeIdentifier* identifier = new NodeIdentifier();
+			NodeIdentifier* identifier = new NodeIdentifier(currentToken);
 			identifier->addInformation(currentToken->getSymtabEntry()->getInfo());
 			exp2->addNode(identifier);
 			nextToken();

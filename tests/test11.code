@@ -1,27 +1,7 @@
 DS $test 1
-LC 4
+DS $test2 1
+LC 3
 LA $test
 STR
-LA $test
-LV
-PRI
-LC 1
-LA $test
-STR
-LA $test
-LV
-PRI
-LA $test
-LV
-LC 1
-EQU
-JIN #label1
-LC 123
-PRI
-NOP
-JMP #label2
-#label1 NOP
-NOP
-#label2 NOP
 NOP
 STP
