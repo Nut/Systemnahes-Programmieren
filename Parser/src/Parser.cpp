@@ -45,6 +45,7 @@ bool Parser::checkToken(Token::TType type) {
 
 void Parser::error() {
 	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->typeToString() << endl;
+	cerr << "stop" << endl;
 	exit(EXIT_FAILURE);
 }
 
@@ -74,7 +75,7 @@ NodeDecls* Parser::decls() {
 		declarations->addNode(decls());
 		return declarations;
 	} else {
-		return new NodeEpsilon();
+		return new NodeEpsilon(NodeEpsilon::epsDecls);
 	}
 
 }
@@ -111,7 +112,7 @@ NodeArray* Parser::array() {
 		checkTokenError(Token::RightBracket);
 		return array;
 	} else {
-		return new NodeEpsilon();
+		return new NodeEpsilon(NodeEpsilon::epsArray);
 	}
 }
 
@@ -133,7 +134,7 @@ NodeStatements* Parser::statements() {
 			return statements_;
 		}
 		default:
-			return new NodeEpsilon();
+			return new NodeEpsilon(NodeEpsilon::epsStatements);
 	}
 }
 
@@ -214,7 +215,7 @@ NodeIndex* Parser::index() {
 		checkTokenError(Token::RightBracket);
 		return index;
 	} else {
-		return new NodeEpsilon();
+		return new NodeEpsilon(NodeEpsilon::epsIndex);
 	}
 
 }
@@ -286,7 +287,7 @@ NodeOpExp* Parser::opExp() {
 			return opExp;
 		}
 		default:
-			return new NodeEpsilon();
+			return new NodeEpsilon(NodeEpsilon::epsOpExp);
 	}
 }
 

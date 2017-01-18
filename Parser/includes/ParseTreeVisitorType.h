@@ -45,6 +45,7 @@ public:
 	virtual ~ParseTreeVisitorType();*/
 
 	void typeCheck(ParseTree* tree);
+	void error(char* errorMessage, unsigned int line, unsigned int column);
 	void visitNode(Node* node);
 	void visitNode(NodeProg* node);
 	void visitNode(NodeArray* node);

@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
 	cout << "generate code..." << endl;
 	ParseTreeVisitorCode mc;
-	mc.makeCode(tree);
+	mc.makeCode(tree, argv[2]);
 }
 
 

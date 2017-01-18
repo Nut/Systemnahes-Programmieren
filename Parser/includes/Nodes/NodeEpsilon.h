@@ -12,6 +12,18 @@
 
 class NodeEpsilon: public NodeDecls, public NodeArray, public NodeStatements, public NodeIndex, public NodeOpExp {
 public:
+	enum EpsilonType {
+		epsDecls,
+		epsArray,
+		epsStatements,
+		epsIndex,
+		epsOpExp
+	};
+
+	NodeEpsilon(NodeEpsilon::EpsilonType epsType) {
+		this->epsType = epsType;
+	}
+
 	virtual ~NodeEpsilon () {}
 
 	void accept(ParseTreeVisitor* visitor) {
@@ -26,8 +38,13 @@ public:
 		return this->type;
 	}
 
+	NodeEpsilon::EpsilonType getEpsilonNodeType() {
+		return this->epsType;
+	}
+
 private:
 	Node::NodeType type;
+	NodeEpsilon::EpsilonType epsType;
 };
 
 

@@ -8,6 +8,9 @@
 #ifndef PARSER_INCLUDES_PARSETREEVISITORCODE_H_
 #define PARSER_INCLUDES_PARSETREEVISITORCODE_H_
 
+#include <fstream>
+#include <iostream>
+
 #include "ParseTreeVisitor.h"
 
 #include "Node.h"
@@ -39,9 +42,12 @@
 
 #include "ParseTree.h"
 
+using namespace std;
+
 class ParseTreeVisitorCode: public ParseTreeVisitor {
 public:
-	void makeCode(ParseTree* tree);
+	unsigned long getLabelNumber();
+	void makeCode(ParseTree* tree, char* filename);
 	void visitNode(Node* node);
 	void visitNode(NodeProg* node);
 	void visitNode(NodeArray* node);
@@ -68,6 +74,9 @@ public:
 	void visitNode(NodeStatementWhile* node);
 	void visitNode(NodeStatementWrite* node);
 	void visitNode(NodeStatements* node);
+private:
+	ofstream code;
+	unsigned long labelNumber;
 };
 
 
