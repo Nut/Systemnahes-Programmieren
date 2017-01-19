@@ -12,17 +12,18 @@
 /*
  * Konstruktor
  *
- * Erstellt eine Symboltabelle, den Scanner und einen neuen Parsebaum.
- * Die Symboltabelle wird dem Scanner übergeben inklusive der einzulesende Datei.
- * Die Variable currentToken wird mit dem ersten initialisiert.
- * Wenn dieser Token ein Kommentar ist, wird der nächste Token aufgerufen.
+ * Erstellt die Symboltabelle, den Scanner und einen leeren Strukturbaum.
+ * Der Scanner bekommt die erstellte Symboltabelle und dem Parser übergebenen Namen,
+ * der zu einlesenden Datei, übergeben.
+ * Die variable currentToken() wird mit dem ersten Token vom Scanner initialisiert.
+ * Anschließend wird überprüft ob der erste Token kein Kommentar ist, sonst wird direkt nextToken() aufgerufen.
  */
 Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable;
 	this->scanner = new Scanner(filename, symtab);
 	this->tree = new ParseTree();
 	this->currentToken = this->scanner->nextToken();
-	if (currentToken->getType() == Token::Null) {
+	if (currentToken->getType() == Token::Comment) {
 		nextToken();
 	}
 }
@@ -30,7 +31,7 @@ Parser::Parser(char* filename) {
 /*
  * Destruktor
  *
- * Löscht den Scanner und den Baum.
+ * Löscht den Scanner und den Strukturbaum.
  */
 Parser::~Parser() {
 	delete this->scanner;
@@ -39,20 +40,26 @@ Parser::~Parser() {
 
 
 /*
- * Holt den nächsten Token beim Scanner. Wenn der letzte Token ein "End of file" Token ist, beendet die Methode.
- * Wenn der neue Token ein Kommentar ist, wird die Methode automatisch nochmal aufgerufen.
+ * Holen des nächsten Tokens
+ *
+ * Überprüft als erstes ob der aktuelle Token kein Eof-Token ist, wenn dies der Fall
+ * ist, passiert nichts.
+ * Wenn dies nicht der Fall ist, wird der nächste Token beim Scanner geholt und der Variable currentToken zugewiesen.
+ * Anschließend wird überprüft ob der Token kein Kommentar ist, sonst wird direkt wieder nextToken() aufgerufen, solange bis kein Kommentar-Token mehr kommt.
  */
 void Parser::nextToken() {
 	if (currentToken->getType() != Token::Eof) {
 		this->currentToken = this->scanner->nextToken();
-		if (currentToken->getType() == Token::Null) {
+		if (currentToken->getType() == Token::Comment) {
 			nextToken();
 		}
 	}
 }
 
 /*
- * Prüft den aktuellen Token mit dem übergebenen Typ.
+ * Token-Überprüfung
+ *
+ * Prüft den aktuellen Token mit dem übergebenen Token-Typ.
  * Bei einer Übereinstimmung wird nextToken() aufgerufen, sonst wird error() aufgerufen.
  */
 void Parser::checkTokenError(Token::TType type) {
@@ -63,7 +70,9 @@ void Parser::checkTokenError(Token::TType type) {
 }
 
 /*
- * Prüft den aktuellen Token mit dem übergebenen Typ.
+ * Token-Überprüfung
+ *
+ * Prüft den aktuellen Token mit dem übergebenen Token-Typ.
  * Bei einer Übereinstimmung wird nextToken() aufgerufen und true zurückgegeben,
  * sonst wird einfach nur false zurückgegeben.
  */
@@ -77,7 +86,9 @@ bool Parser::checkToken(Token::TType type) {
 }
 
 /*
- * Gibt eine Fehlermeldung mit der Zeilen- & Spaltenangabe und dem Tokentyp aus.
+ * Fehlerausgabe
+ *
+ * Gibt eine Fehlermeldung mit der Zeilen- & Spaltenangabe und dem Token-Typ aus.
  * Zusätzlich bricht das Programm ab.
  */
 void Parser::error() {
@@ -87,7 +98,7 @@ void Parser::error() {
 }
 
 /*
- *	Ruft prog() auf und gibt den Parsebaum zurück.
+ *	Ruft prog() auf und gibt den Strukturbaum zurück.
  */
 
 ParseTree* Parser::parse() {
@@ -176,7 +187,7 @@ NodeStatements* Parser::statements() {
 		}
 		case Token::Int:
 			error();
-			break;
+			return new NodeStatements();
 		default:
 			return new NodeEpsilon(NodeEpsilon::epsStatements);
 	}

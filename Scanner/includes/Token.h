@@ -40,7 +40,7 @@ public:
 		LeftBracket,
 		RightBracket,
 		Unknown,
-		Null,
+		Comment,
 		Error,
 		Eof
 	};

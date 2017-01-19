@@ -93,7 +93,7 @@ Token* Scanner::createToken() {
 		case Automat::ColonBetweenEqualFinal:
 			return new Token(Token::ColonBetweenEqual, automat->getLine(), automat->getColumn(), NULL, NULL , NULL);
 		case Automat::CommentFinal:
-			return new Token(Token::Null, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
+			return new Token(Token::Comment, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);
 		case Automat::Sign:
 			if (*automat->getLexem() == ';') {
 				return new Token(Token::Semicolon, automat->getLine(), automat->getColumn(), NULL, NULL, NULL);

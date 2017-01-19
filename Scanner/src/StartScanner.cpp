@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 				output  << "Token Unknown  " << "\t\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn()  << "\t\tSymbol: " << t->getSymbol() << endl;
 				cerr << "Token Unknown  " << "\t\tLine:\t" << t->getLine() << "\t\tColumn: " << t->getColumn()  << "\t\tSymbol: " << t->getSymbol() << endl;
 				break;
-			case Token::Null:
+			case Token::Comment:
 				break;
 			case Token::Error:
 				cerr << "error, overflow in line " << t->getLine()<< " column " << t->getColumn() << endl;
