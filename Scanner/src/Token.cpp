@@ -104,6 +104,8 @@ char* Token::typeToString() {
 			return "Int";
 		case Token::Eof:
 			return "Eof";
+		case Token::Comment:
+			return "Comment";
 		default:
 			return "[Unknown Type]";
 	}

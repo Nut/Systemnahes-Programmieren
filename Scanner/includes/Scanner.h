@@ -22,14 +22,6 @@ public:
 
 private:
 	int stringCompare( const char *s1, const char *s2);
-	char* whileUpper = "WHILE";
-	char* whileLower = "while";
-	char* read = "read";
-	char* write = "write";
-	char* ifUpper = "IF";
-	char* ifLower = "if";
-	char* elseUpper = "ELSE";
-	char* elseLower = "else";
 	Automat* automat;
 	Buffer* buffer;
 	Symboltable* symboltable;

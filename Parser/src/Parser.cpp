@@ -187,7 +187,7 @@ NodeStatements* Parser::statements() {
 		}
 		case Token::Int:
 			error();
-			return new NodeStatements();
+			break;
 		default:
 			return new NodeEpsilon(NodeEpsilon::epsStatements);
 	}
