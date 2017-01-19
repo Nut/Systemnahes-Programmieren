@@ -2,7 +2,7 @@
  * ParseTreeVisitorType.cpp
  *
  *  Created on: 15.01.2017
- *      Author: yannick
+ *      Author: Stephan Yannick
  */
 
 #include "../includes/ParseTreeVisitorType.h"
@@ -16,6 +16,10 @@ void ParseTreeVisitorType::typeCheck(ParseTree* tree) {
 	tree->getProg()->accept(this);
 }
 
+/*
+ * Gibt eine Fehlermeldung mit der Zeilen- & Spaltenangabe und dem Fehlertyp aus.
+ * Zusätzlich bricht das Programm ab.
+ */
 void ParseTreeVisitorType::error(char* errorMessage, unsigned int line, unsigned int column) {
 	cerr << "error Line: " << line << " Column: " << column << " " << errorMessage << endl;
 	cerr << "stop" << endl;

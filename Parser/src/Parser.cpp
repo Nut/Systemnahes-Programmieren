@@ -2,13 +2,21 @@
  * Parser.cpp
  *
  *  Created on: 11.12.2016
- *      Author: Denis
+ *      Author: Heinen Denis
  */
 
 #include "../includes/Parser.h"
 #include <iostream>
 #include <stdlib.h>
 
+/*
+ * Konstruktor
+ *
+ * Erstellt eine Symboltabelle, den Scanner und einen neuen Parsebaum.
+ * Die Symboltabelle wird dem Scanner übergeben inklusive der einzulesende Datei.
+ * Die Variable currentToken wird mit dem ersten initialisiert.
+ * Wenn dieser Token ein Kommentar ist, wird der nächste Token aufgerufen.
+ */
 Parser::Parser(char* filename) {
 	Symboltable* symtab = new Symboltable;
 	this->scanner = new Scanner(filename, symtab);
@@ -19,11 +27,21 @@ Parser::Parser(char* filename) {
 	}
 }
 
+/*
+ * Destruktor
+ *
+ * Löscht den Scanner und den Baum.
+ */
 Parser::~Parser() {
 	delete this->scanner;
 	delete this->tree;
 }
 
+
+/*
+ * Holt den nächsten Token beim Scanner. Wenn der letzte Token ein "End of file" Token ist, beendet die Methode.
+ * Wenn der neue Token ein Kommentar ist, wird die Methode automatisch nochmal aufgerufen.
+ */
 void Parser::nextToken() {
 	if (currentToken->getType() != Token::Eof) {
 		this->currentToken = this->scanner->nextToken();
@@ -33,6 +51,10 @@ void Parser::nextToken() {
 	}
 }
 
+/*
+ * Prüft den aktuellen Token mit dem übergebenen Typ.
+ * Bei einer Übereinstimmung wird nextToken() aufgerufen, sonst wird error() aufgerufen.
+ */
 void Parser::checkTokenError(Token::TType type) {
 	if (this->currentToken->getType() != type) {
 		error();
@@ -40,6 +62,11 @@ void Parser::checkTokenError(Token::TType type) {
 	nextToken();
 }
 
+/*
+ * Prüft den aktuellen Token mit dem übergebenen Typ.
+ * Bei einer Übereinstimmung wird nextToken() aufgerufen und true zurückgegeben,
+ * sonst wird einfach nur false zurückgegeben.
+ */
 bool Parser::checkToken(Token::TType type) {
 	if (this->currentToken->getType() == type) {
 		nextToken();
@@ -49,11 +76,19 @@ bool Parser::checkToken(Token::TType type) {
 	}
 }
 
+/*
+ * Gibt eine Fehlermeldung mit der Zeilen- & Spaltenangabe und dem Tokentyp aus.
+ * Zusätzlich bricht das Programm ab.
+ */
 void Parser::error() {
 	cerr << "unexpected Token Line: " << currentToken->getLine() << " Column: " << currentToken->getColumn() << " " << currentToken->typeToString() << endl;
 	cerr << "stop" << endl;
 	exit(EXIT_FAILURE);
 }
+
+/*
+ *	Ruft prog() auf und gibt den Parsebaum zurück.
+ */
 
 ParseTree* Parser::parse() {
 	this->tree->addProg(prog());
@@ -147,6 +182,11 @@ NodeStatements* Parser::statements() {
 	}
 }
 
+/*
+ *	STATEMENT ::= identifier INDEX := EXP | write(EXP) | read(identifier INDEX) |
+ *				  {STATEMENTS} | if (EXP) STATEMENT else STATEMENT | while (EXP) STATEMENT
+ *
+ */
 NodeStatement* Parser::statement() {
 	switch (currentToken->getType()) {
 		case Token::Identifier: {
@@ -217,6 +257,9 @@ NodeStatement* Parser::statement() {
 	}
 }
 
+/*
+ * INDEX ::= [EXP]
+ */
 NodeIndex* Parser::index() {
 	if (checkToken(Token::LeftBracket)) {
 		NodeIndex* index = new NodeIndex();
@@ -229,6 +272,9 @@ NodeIndex* Parser::index() {
 
 }
 
+/**
+ * EXP ::= EXP2 OP_EXP
+ */
 NodeExp* Parser::exp() {
 	NodeExp* exp = new NodeExp();
 	exp->addNode(exp2());
@@ -236,6 +282,9 @@ NodeExp* Parser::exp() {
 	return exp;
 }
 
+/**
+ * EXP2 ::= (EXP) | identifier INDEX | integer | -EXP2 | !EXP2
+ */
 NodeExp2* Parser::exp2() {
 	switch (currentToken->getType()) {
 		case Token::LeftParent: {
@@ -279,6 +328,9 @@ NodeExp2* Parser::exp2() {
 	}
 }
 
+/**
+ * OP_EXP ::= OP EXP
+ */
 NodeOpExp* Parser::opExp() {
 	switch (currentToken->getType()) {
 		case Token::Plus:
@@ -300,6 +352,9 @@ NodeOpExp* Parser::opExp() {
 	}
 }
 
+/**
+ * OP ::= + | - | * | : | < | > | = | =:= | &&
+ */
 NodeOp* Parser::op() {
 	NodeOp* op = new NodeOp(currentToken);
 	nextToken();
