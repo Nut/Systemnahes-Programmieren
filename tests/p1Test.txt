@@ -18,7 +18,7 @@ read(a);
 :*   3*:
 read(b);
 if (a < 0) { a := -a; write(a);} else{};
-if (b < 0) { b := -b; :*(b);} else{};
+if (b < 0) { b := -b; write(b);} else{};
 c := a : b;
 d := a - (c * b);
 
