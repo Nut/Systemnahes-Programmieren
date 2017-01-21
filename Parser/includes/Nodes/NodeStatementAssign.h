@@ -18,6 +18,12 @@ private:
 	NodeExp* exp;
 
 public:
+	~NodeStatementAssign() {
+		delete this->identifier;
+		delete this->index;
+		delete this->exp;
+	}
+
 	void addNode(NodeIdentifier* identifier) {
 		this->identifier = identifier;
 	}

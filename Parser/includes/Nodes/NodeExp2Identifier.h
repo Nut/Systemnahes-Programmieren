@@ -16,6 +16,7 @@ private:
 public:
 	~NodeExp2Identifier() {
 		delete this->identifier;
+		delete this->index;
 	}
 
 	void addNode(NodeIdentifier* identifier) {

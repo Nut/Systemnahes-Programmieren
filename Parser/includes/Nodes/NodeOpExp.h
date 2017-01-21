@@ -9,6 +9,7 @@
 #define PARSER_INCLUDES_NODES_NODEOPEXP_H_
 
 #include "NodeOp.h"
+#include "NodeExp.h"
 
 class NodeExp;
 

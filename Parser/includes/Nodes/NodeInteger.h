@@ -8,12 +8,15 @@
 #ifndef PARSER_INCLUDES_NODES_NODEINTEGER_H_
 #define PARSER_INCLUDES_NODES_NODEINTEGER_H_
 
+#include "../../../Scanner/includes/Token.h"
 
 class NodeInteger: public Node {
 private:
 	long int value;
+	Token* token;
+
 public:
-	NodeInteger(long int value) {
+	NodeInteger(long int value, Token* token) {
 		this->value = value;
 	}
 
@@ -29,6 +32,14 @@ public:
 
 	long int getValue() {
 		return this->value;
+	}
+
+	unsigned int getLine() {
+		return this->token->getLine();
+	}
+
+	unsigned int getColumn() {
+		return this->token->getColumn();
 	}
 };
 

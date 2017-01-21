@@ -75,7 +75,7 @@ void ParseTreeVisitorType::visitNode(NodeArray* node) {
 	if (node->getInteger()->getValue() > 0) {
 		node->setType(Node::arrayType);
 	} else {
-		error("no valid dimension", 0, 0);
+		error("no valid dimension", node->getInteger()->getLine(), node->getInteger()->getColumn());
 		node->setType(Node::errorType);
 	}
 }

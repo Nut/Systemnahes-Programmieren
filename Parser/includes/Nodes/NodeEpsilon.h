@@ -8,8 +8,6 @@
 #ifndef PARSER_INCLUDES_NODES_NODEEPSILON_H_
 #define PARSER_INCLUDES_NODES_NODEEPSILON_H_
 
-//#include "NodeIndex.h"
-
 class NodeEpsilon: public NodeDecls, public NodeArray, public NodeStatements, public NodeIndex, public NodeOpExp {
 public:
 	enum EpsilonType {

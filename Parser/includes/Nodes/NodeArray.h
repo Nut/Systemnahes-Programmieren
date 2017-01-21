@@ -15,6 +15,10 @@ private:
 	NodeInteger* integer;
 
 public:
+	~NodeArray() {
+		delete this->integer;
+	}
+
 	void addInteger(NodeInteger* integer) {
 		this->integer = integer;
 	}

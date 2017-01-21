@@ -19,6 +19,7 @@ void ParseTreeVisitorCode::makeCode(ParseTree* tree, char* filename) {
 	this->labelNumber = 1;
 	code.open(filename);
 	tree->getProg()->accept(this);
+	code.close();
 }
 
 /**
@@ -27,7 +28,7 @@ void ParseTreeVisitorCode::makeCode(ParseTree* tree, char* filename) {
 void ParseTreeVisitorCode::visitNode(NodeProg* node) {
 	node->getDecls()->accept(this);
 	node->getStatements()->accept(this);
-	code << "STP" << endl;
+	code << "STP";
 }
 
 /**

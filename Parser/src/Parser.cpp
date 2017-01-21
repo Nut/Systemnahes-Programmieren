@@ -156,7 +156,7 @@ NodeArray* Parser::array() {
 	if (checkToken(Token::LeftBracket)) {
 		NodeArray* array = new NodeArray();
 		if (currentToken->getType() == Token::Integer) {
-			array->addInteger(new NodeInteger(currentToken->getValue()));
+			array->addInteger(new NodeInteger(currentToken->getValue(), currentToken));
 			nextToken();
 		} else {
 			error();
@@ -315,7 +315,7 @@ NodeExp2* Parser::exp2() {
 			return exp2;
 		}
 		case Token::Integer: {
-			NodeInteger* integer = new NodeInteger(currentToken->getValue());
+			NodeInteger* integer = new NodeInteger(currentToken->getValue(), currentToken);
 			NodeExp2Integer* exp2 = new NodeExp2Integer();
 			exp2->addNode(integer);
 			nextToken();

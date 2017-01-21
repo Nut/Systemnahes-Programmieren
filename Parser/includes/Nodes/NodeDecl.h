@@ -18,6 +18,11 @@ private:
 	NodeIdentifier* identifier;
 
 public:
+	~NodeDecl() {
+		delete this->array;
+		delete this->identifier;
+	}
+
 	void addNode(NodeArray* array) {
 		this->array = array;
 	}

@@ -16,6 +16,7 @@ public:
 	virtual ~ParseTree();
 	void addProg(NodeProg* node);
 	NodeProg* getProg();
+
 private:
 	NodeProg* prog;
 };

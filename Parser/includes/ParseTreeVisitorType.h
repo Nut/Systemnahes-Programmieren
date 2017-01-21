@@ -41,9 +41,6 @@
 
 class ParseTreeVisitorType: public ParseTreeVisitor {
 public:
-	/*ParseTreeVisitorType();
-	virtual ~ParseTreeVisitorType();*/
-
 	void typeCheck(ParseTree* tree);
 	void error(char* errorMessage, unsigned int line, unsigned int column);
 	void visitNode(Node* node);
