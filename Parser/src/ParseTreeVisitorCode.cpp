@@ -11,10 +11,17 @@
 
 using namespace std;
 
+/**
+ * Zählt die Labelnummer nach oben um eindeutige Sprungmarken zu erhalten.
+ */
 unsigned long ParseTreeVisitorCode::getLabelNumber() {
 	return this->labelNumber++;
 }
 
+/**
+ * Öffnet die Outputdatei um dort die Ausgabe zu speichern.
+ * Startet die Codeerzeugung am ersten Knoten "PROG".
+ */
 void ParseTreeVisitorCode::makeCode(ParseTree* tree, char* filename) {
 	this->labelNumber = 1;
 	code.open(filename);
@@ -39,6 +46,13 @@ void ParseTreeVisitorCode::visitNode(NodeDecls* node) {
 	node->getDecls()->accept(this);
 }
 
+/**
+ * DECL 		::= e
+ * ARRAY 		::= e
+ * STATEMENTS 	::= e
+ * INDEX 		::= e
+ * OP_EXP 		::= e
+ */
 void ParseTreeVisitorCode::visitNode(NodeEpsilon* node) {
 	switch (node->getEpsilonNodeType()) {
 		case NodeEpsilon::epsDecls:
@@ -51,7 +65,7 @@ void ParseTreeVisitorCode::visitNode(NodeEpsilon* node) {
 		case NodeEpsilon::epsArray:
 			code << "1" << endl;
 			break;
-		}
+	}
 }
 
 /**

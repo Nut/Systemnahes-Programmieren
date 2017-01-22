@@ -18,13 +18,7 @@ public:
 		this->token = token;
 	}
 
-	~NodeOp() {
-
-	}
-
-	void addToken() {
-		//TODO
-	}
+	~NodeOp() {}
 
 	void accept(ParseTreeVisitor* visitor) {
 		visitor->visitNode(this);

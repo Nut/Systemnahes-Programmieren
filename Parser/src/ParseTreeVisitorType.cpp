@@ -12,11 +12,14 @@
 
 using namespace std;
 
+/**
+ * Startet die Typüberprüfung am Knoten "PROG" für den übergebenen Baum.
+ */
 void ParseTreeVisitorType::typeCheck(ParseTree* tree) {
 	tree->getProg()->accept(this);
 }
 
-/*
+/**
  * Gibt eine Fehlermeldung mit der Zeilen- & Spaltenangabe und dem Fehlertyp aus.
  * Zusätzlich bricht das Programm ab.
  */
@@ -44,6 +47,13 @@ void ParseTreeVisitorType::visitNode(NodeDecls* node) {
 	node->setType(Node::noType);
 }
 
+/**
+ * DECL 		::= e
+ * ARRAY 		::= e
+ * STATEMENTS 	::= e
+ * INDEX 		::= e
+ * OP_EXP 		::= e
+ */
 void ParseTreeVisitorType::visitNode(NodeEpsilon* node) {
 	node->setEpsilonType(Node::noType);
 }

@@ -36,6 +36,11 @@ class NodeStatementWrite;
 class NodeStatements;
 class NodeOpExp;
 
+/**
+ * Abstrakte Basisklasse des Besuchers.
+ * Alle Besucher müssen diese Klasse implementieren, um durch den Baum zu traversieren.
+ * Mit der Methode "visitNode()" wird der entsprechende Knoten besucht, auf dem Operationen durchgeführt werden können.
+ */
 class ParseTreeVisitor {
 public:
 	virtual ~ParseTreeVisitor() {}

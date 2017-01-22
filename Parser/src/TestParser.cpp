@@ -14,6 +14,10 @@
 
 using namespace std;
 
+/**
+ * Main-Methode.
+ * Startet den kompletten Compiler.
+ */
 int main(int argc, char **argv) {
 	cout << "parsing..." << endl;
 	Parser* parser = new Parser(argv[1]);
@@ -27,6 +31,3 @@ int main(int argc, char **argv) {
 	ParseTreeVisitorCode mc;
 	mc.makeCode(tree, argv[2]);
 }
-
-
-

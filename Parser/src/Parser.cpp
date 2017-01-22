@@ -9,7 +9,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-/*
+/**
  * Konstruktor
  *
  * Erstellt die Symboltabelle, den Scanner und einen leeren Strukturbaum.
@@ -28,7 +28,7 @@ Parser::Parser(char* filename) {
 	}
 }
 
-/*
+/**
  * Destruktor
  *
  * Löscht den Scanner und den Strukturbaum.
@@ -39,7 +39,7 @@ Parser::~Parser() {
 }
 
 
-/*
+/**
  * Holen des nächsten Tokens
  *
  * Überprüft als erstes ob der aktuelle Token kein Eof-Token ist, wenn dies der Fall
@@ -56,7 +56,7 @@ void Parser::nextToken() {
 	}
 }
 
-/*
+/**
  * Token-Überprüfung
  *
  * Prüft den aktuellen Token mit dem übergebenen Token-Typ.
@@ -69,7 +69,7 @@ void Parser::checkTokenError(Token::TType type) {
 	nextToken();
 }
 
-/*
+/**
  * Token-Überprüfung
  *
  * Prüft den aktuellen Token mit dem übergebenen Token-Typ.
@@ -85,7 +85,7 @@ bool Parser::checkToken(Token::TType type) {
 	}
 }
 
-/*
+/**
  * Fehlerausgabe
  *
  * Gibt eine Fehlermeldung mit der Zeilen- & Spaltenangabe und dem Token-Typ aus.
@@ -97,10 +97,9 @@ void Parser::error() {
 	exit(EXIT_FAILURE);
 }
 
-/*
+/**
  *	Ruft prog() auf und gibt den Strukturbaum zurück.
  */
-
 ParseTree* Parser::parse() {
 	this->tree->addProg(prog());
 	return this->tree;
@@ -193,7 +192,7 @@ NodeStatements* Parser::statements() {
 	}
 }
 
-/*
+/**
  *	STATEMENT ::= identifier INDEX := EXP | write(EXP) | read(identifier INDEX) |
  *				  {STATEMENTS} | if (EXP) STATEMENT else STATEMENT | while (EXP) STATEMENT
  *
@@ -268,7 +267,7 @@ NodeStatement* Parser::statement() {
 	}
 }
 
-/*
+/**
  * INDEX ::= [EXP]
  */
 NodeIndex* Parser::index() {
