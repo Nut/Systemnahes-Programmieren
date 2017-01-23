@@ -12,11 +12,11 @@
 
 class NodeInteger: public Node {
 private:
-	long int value;
+	unsigned long value;
 	Token* token;
 
 public:
-	NodeInteger(long int value, Token* token) {
+	NodeInteger(unsigned long value, Token* token) {
 		this->value = value;
 	}
 
@@ -30,7 +30,7 @@ public:
 		visitor->visitNode(this);
 	}
 
-	long int getValue() {
+	unsigned long getValue() {
 		return this->value;
 	}
 
